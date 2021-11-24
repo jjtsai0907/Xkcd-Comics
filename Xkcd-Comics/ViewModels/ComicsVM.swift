@@ -11,6 +11,7 @@ class ComicsVM: ObservableObject {
     
     let USER_DEFAULTS_KEY = "saved_comic"
     @Published var comicObject: Comic? = nil
+    @Published var comicObjectList: [Comic] = []
     
     @Published var num = 0
     @Published var title: String = "Default"
@@ -177,7 +178,9 @@ class ComicsVM: ObservableObject {
     func saveAsFavourite() {
         
         // transform the ComicObject into a JsonFile, and then save it with UserDefaults
-        if let encodedData = try? JSONEncoder().encode(comicObject){
+        
+        comicObjectList.append(comicObject!)
+        if let encodedData = try? JSONEncoder().encode(comicObjectList){
             UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
             print("saveAsFavourite()")
         }
@@ -189,8 +192,11 @@ class ComicsVM: ObservableObject {
         
         // get the JsonFile first and then transform it into a ComicObject
         guard let data = UserDefaults.standard.data(forKey: USER_DEFAULTS_KEY) else { return }
-        guard let savedComic = try? JSONDecoder().decode(Comic.self, from: data) else { return }
-        print("getFavouriteComic(): \(savedComic.title)")
+        guard let favouriteComicsList = try? JSONDecoder().decode([Comic].self, from: data) else { return }
+        
+        for i in favouriteComicsList {
+            print("favourite comics: \(i.title)")
+        }
     }
     
 }
