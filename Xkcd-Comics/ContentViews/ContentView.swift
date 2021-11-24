@@ -16,12 +16,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack{
-                
+                Spacer()
                 
                 if showingInfo {
-                    Text(comicsVM.alt)
-                        .font(.title2)
-                        
+                    VStack{
+                        Text(comicsVM.alt)
+                            .font(.title2)
+                        Text("\(comicsVM.num)")
+                    }
+                    
                     
                 } else {
                     KFImage(URL(string: comicsVM.img))
@@ -31,6 +34,20 @@ struct ContentView: View {
                         
                 }
                 
+                Spacer()
+                
+                HStack{
+                    ButtonView(icon: "arrowshape.turn.up.backward", title:"Previous"){
+                        comicsVM.fetchPreviousComic()
+                        print("ddd")
+                    }
+                    
+                    Spacer()
+                    
+                    ButtonView(icon: "arrowshape.turn.up.forward", title:"Next"){
+                        print("ddd")
+                    }
+                }
                 
                 
             }.navigationTitle(comicsVM.title)
@@ -38,6 +55,9 @@ struct ContentView: View {
                 showingInfo.toggle()
                 
             }
+            
+            
+            
         }
     }
 }
