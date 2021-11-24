@@ -11,13 +11,13 @@
 		B9AF8CC5274E4D8F00B1552B /* ExplanationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF8CC4274E4D8F00B1552B /* ExplanationSheet.swift */; };
 		B9AF8CC7274E554400B1552B /* ExplanationSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF8CC6274E554400B1552B /* ExplanationSheetVM.swift */; };
 		B9AF8CC9274E560100B1552B /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF8CC8274E560100B1552B /* Webview.swift */; };
+		B9AF8CCC274E6A7500B1552B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B9AF8CCB274E6A7500B1552B /* Kingfisher */; };
 		B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD31274E182200028CF6 /* Xkcd_ComicsApp.swift */; };
 		B9D1AD34274E182200028CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD33274E182200028CF6 /* ContentView.swift */; };
 		B9D1AD36274E182300028CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D1AD35274E182300028CF6 /* Assets.xcassets */; };
 		B9D1AD39274E182300028CF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D1AD38274E182300028CF6 /* Preview Assets.xcassets */; };
 		B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */; };
 		B9D1AD47274E209500028CF6 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD46274E209500028CF6 /* Comic.swift */; };
-		B9D1AD4A274E31E900028CF6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B9D1AD49274E31E900028CF6 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,18 +40,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9D1AD4A274E31E900028CF6 /* Kingfisher in Frameworks */,
+				B9AF8CCC274E6A7500B1552B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B9AF8CCA274E6A7500B1552B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B9D1AD25274E182200028CF6 = {
 			isa = PBXGroup;
 			children = (
 				B9D1AD30274E182200028CF6 /* Xkcd-Comics */,
 				B9D1AD2F274E182200028CF6 /* Products */,
+				B9AF8CCA274E6A7500B1552B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,7 +146,7 @@
 			);
 			name = "Xkcd-Comics";
 			packageProductDependencies = (
-				B9D1AD49274E31E900028CF6 /* Kingfisher */,
+				B9AF8CCB274E6A7500B1552B /* Kingfisher */,
 			);
 			productName = "Xkcd-Comics";
 			productReference = B9D1AD2E274E182200028CF6 /* Xkcd-Comics.app */;
@@ -403,7 +411,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B9D1AD49274E31E900028CF6 /* Kingfisher */ = {
+		B9AF8CCB274E6A7500B1552B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9D1AD48274E31E900028CF6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;

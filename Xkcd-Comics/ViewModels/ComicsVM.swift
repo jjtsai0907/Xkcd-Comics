@@ -13,8 +13,13 @@ class ComicsVM: ObservableObject {
     @Published var img: String = "Default"
     @Published var alt: String = "Default"
     
+    // Description
     @Published var showingDescription = false
     
+    
+    // Search
+    @Published var showingSearch = false
+    @Published var searchValue = ""
     
     init() {
         fetchComics()
@@ -111,8 +116,54 @@ class ComicsVM: ObservableObject {
     }
     
     
+    
+    
     func showDescription() {
         showingDescription.toggle()
     }
+    
+    func searchComic(searchNum: String) {
+        
+        if showingSearch {
+            
+            // search function
+            
+            guard let url = URL(string: "https://xkcd.com/\(searchNum)/info.0.json") else { return }
+            
+            let task = URLSession.shared.dataTask(with: url) { data, _, error in
+                guard let data = data, error == nil else { return }
+                
+                // Convert data to Model
+                do {
+                    let model = try JSONDecoder().decode(Comic.self, from: data)
+                    print(model.title)
+                    
+                    DispatchQueue.main.async {
+                        self.num = model.num
+                        self.title = model.title
+                        self.img = model.img
+                        self.alt = model.alt
+                        
+                        self.showingSearch = false
+                    }
+                    
+                    
+                } catch {
+                    print("failed")
+                }
+                
+                
+            }
+            
+            
+            task.resume()
+        
+        } else {
+            showingSearch = true
+        }
+        
+        
+    }
+    
     
 }
