@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ContentView: View {
     @StateObject var comicsVM = ComicsVM()
@@ -20,6 +21,8 @@ struct ContentView: View {
                 .padding()
             Text(comicsVM.img)
                 .padding()
+            
+            KFImage(URL(string: comicsVM.img))
         }
         
     }
