@@ -27,7 +27,7 @@ struct ContentView: View {
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
                                 comicsVM.showDescription()
-                            }.sheet(isPresented: $comicsVM.showingDescription, content:{Text("Explanation")} )
+                            }.sheet(isPresented: $comicsVM.showingDescription, content:{Text("Explanation")})
                         }
                     }
                     
@@ -62,7 +62,24 @@ struct ContentView: View {
                 showingInfo.toggle()
                 
             }
-            
+            .navigationBarItems(trailing: HStack{
+                Button(action: {
+                    print("Search")
+                }, label: {
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                })
+                .padding(.trailing)
+                
+                Button(action: {
+                    print("Favourite")
+                }, label: {
+                    Image(systemName: "heart")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                })
+            })
             
             
         }
