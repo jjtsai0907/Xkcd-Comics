@@ -23,6 +23,12 @@ struct ContentView: View {
                         Text(comicsVM.alt)
                             .font(.title2)
                         Text("\(comicsVM.num)")
+                        
+                        HStack{
+                            ButtonView(icon: "info.circle", title:"Explanation"){
+                                comicsVM.showDescription()
+                            }.sheet(isPresented: $comicsVM.showingDescription, content:{Text("Explanation")} )
+                        }
                     }
                     
                     

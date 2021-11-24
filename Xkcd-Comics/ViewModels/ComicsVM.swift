@@ -13,6 +13,8 @@ class ComicsVM: ObservableObject {
     @Published var img: String = "Default"
     @Published var alt: String = "Default"
     
+    @Published var showingDescription = false
+    
     
     init() {
         fetchComics()
@@ -108,5 +110,9 @@ class ComicsVM: ObservableObject {
         task.resume()
     }
     
+    
+    func showDescription() {
+        showingDescription.toggle()
+    }
     
 }
