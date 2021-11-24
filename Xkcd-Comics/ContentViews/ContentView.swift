@@ -64,7 +64,7 @@ struct ContentView: View {
                 
             }
             .navigationBarItems(trailing: HStack{
-                Spacer()
+                
                 if comicsVM.showingSearch {
                     TextField("Search..", text: $comicsVM.searchValue)
                         .padding(.trailing)
@@ -72,8 +72,10 @@ struct ContentView: View {
                         .padding(.horizontal, 5)
                         .background(Color(.lightGray))
                         .cornerRadius(10)
+                        .keyboardType(.numberPad)
+                        
                 }
-                
+                Spacer()
                 Button(action: {
                     comicsVM.searchComic(searchNum: comicsVM.searchValue)
                     print("Search")
