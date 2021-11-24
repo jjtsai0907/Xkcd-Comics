@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9AF8CC3274E3CCC00B1552B /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF8CC2274E3CCC00B1552B /* ButtonView.swift */; };
 		B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD31274E182200028CF6 /* Xkcd_ComicsApp.swift */; };
 		B9D1AD34274E182200028CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD33274E182200028CF6 /* ContentView.swift */; };
 		B9D1AD36274E182300028CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D1AD35274E182300028CF6 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B9AF8CC2274E3CCC00B1552B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		B9D1AD2E274E182200028CF6 /* Xkcd-Comics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Xkcd-Comics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9D1AD31274E182200028CF6 /* Xkcd_ComicsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xkcd_ComicsApp.swift; sourceTree = "<group>"; };
 		B9D1AD33274E182200028CF6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		B9D1AD42274E1CB600028CF6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B9AF8CC2274E3CCC00B1552B /* ButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			files = (
 				B9D1AD34274E182200028CF6 /* ContentView.swift in Sources */,
 				B9D1AD47274E209500028CF6 /* Comic.swift in Sources */,
+				B9AF8CC3274E3CCC00B1552B /* ButtonView.swift in Sources */,
 				B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */,
 				B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */,
 			);
