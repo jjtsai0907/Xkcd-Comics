@@ -39,13 +39,14 @@ struct ContentView: View {
                 HStack{
                     ButtonView(icon: "arrowshape.turn.up.backward", title:"Previous"){
                         comicsVM.fetchPreviousComic()
-                        print("ddd")
+                        
                     }
                     
                     Spacer()
                     
                     ButtonView(icon: "arrowshape.turn.up.forward", title:"Next"){
-                        print("ddd")
+                        comicsVM.fetchNextComic()
+                        
                     }
                 }
                 
