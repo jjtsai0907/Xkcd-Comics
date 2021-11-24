@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var showingInfo = false
     
     
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -63,7 +64,18 @@ struct ContentView: View {
                 
             }
             .navigationBarItems(trailing: HStack{
+                Spacer()
+                if comicsVM.showingSearch {
+                    TextField("Search..", text: $comicsVM.searchValue)
+                        .padding(.trailing)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 5)
+                        .background(Color(.lightGray))
+                        .cornerRadius(10)
+                }
+                
                 Button(action: {
+                    comicsVM.searchComic(searchNum: comicsVM.searchValue)
                     print("Search")
                 }, label: {
                     Image(systemName: "magnifyingglass")
