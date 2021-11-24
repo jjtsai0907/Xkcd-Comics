@@ -27,7 +27,7 @@ struct ContentView: View {
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
                                 comicsVM.showDescription()
-                            }.sheet(isPresented: $comicsVM.showingDescription, content:{Text("Explanation")})
+                            }.sheet(isPresented: $comicsVM.showingDescription, content:{ExplanationSheet(num: comicsVM.num)})
                         }
                     }
                     
