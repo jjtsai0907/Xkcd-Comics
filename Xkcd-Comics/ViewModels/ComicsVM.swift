@@ -8,6 +8,10 @@
 import Foundation
 
 class ComicsVM: ObservableObject {
+    
+    let USER_DEFAULTS_KEY = "saved_comic"
+    @Published var comicObject: Comic? = nil
+    
     @Published var num = 0
     @Published var title: String = "Default"
     @Published var img: String = "Default"
@@ -37,6 +41,7 @@ class ComicsVM: ObservableObject {
                 print(model.title)
                 
                 DispatchQueue.main.async {
+                    self.comicObject = model
                     self.num = model.num
                     self.title = model.title
                     self.img = model.img
@@ -66,11 +71,13 @@ class ComicsVM: ObservableObject {
                 let model = try JSONDecoder().decode(Comic.self, from: data)
                 print(model.title)
                 
+                
                 DispatchQueue.main.async {
                     self.num = model.num
                     self.title = model.title
                     self.img = model.img
                     self.alt = model.alt
+                    self.comicObject = model
                 }
                 
             } catch {
@@ -102,6 +109,7 @@ class ComicsVM: ObservableObject {
                     self.title = model.title
                     self.img = model.img
                     self.alt = model.alt
+                    self.comicObject = model
                 }
                 
             } catch {
@@ -138,12 +146,13 @@ class ComicsVM: ObservableObject {
                     let model = try JSONDecoder().decode(Comic.self, from: data)
                     print(model.title)
                     
+                    
                     DispatchQueue.main.async {
                         self.num = model.num
                         self.title = model.title
                         self.img = model.img
                         self.alt = model.alt
-                        
+                        self.comicObject = model
                         self.showingSearch = false
                     }
                     
@@ -165,5 +174,23 @@ class ComicsVM: ObservableObject {
         
     }
     
+    func saveAsFavourite() {
+        
+        // transform the ComicObject into a JsonFile, and then save it with UserDefaults
+        if let encodedData = try? JSONEncoder().encode(comicObject){
+            UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
+            print("saveAsFavourite()")
+        }
+        
+    }
+    
+    
+    func getFavouriteComic() {
+        
+        // get the JsonFile first and then transform it into a ComicObject
+        guard let data = UserDefaults.standard.data(forKey: USER_DEFAULTS_KEY) else { return }
+        guard let savedComic = try? JSONDecoder().decode(Comic.self, from: data) else { return }
+        print("getFavouriteComic(): \(savedComic.title)")
+    }
     
 }

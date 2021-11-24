@@ -87,12 +87,22 @@ struct ContentView: View {
                 .padding(.trailing)
                 
                 Button(action: {
-                    print("Favourite")
+                    comicsVM.saveAsFavourite()
                 }, label: {
                     Image(systemName: "heart")
                         .resizable()
                         .frame(width: 20, height: 20)
                 })
+                
+                Button(action: {
+                    comicsVM.getFavouriteComic()
+                }, label: {
+                    Image(systemName: "square.and.arrow.down.on.square.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                })
+                
+                
             })
             
             
