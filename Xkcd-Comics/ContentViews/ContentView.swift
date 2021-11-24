@@ -11,8 +11,17 @@ struct ContentView: View {
     @StateObject var comicsVM = ComicsVM()
     
     var body: some View {
-        Text(comicsVM.title)
-            .padding()
+        VStack{
+            Text(comicsVM.title)
+                .padding()
+            Text("\(comicsVM.num)")
+                .padding()
+            Text(comicsVM.alt)
+                .padding()
+            Text(comicsVM.img)
+                .padding()
+        }
+        
     }
 }
 

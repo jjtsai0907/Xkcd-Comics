@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Comics: Codable {
+struct Comic: Codable {
     let num: Int
     let title: String
+    let img: String
+    let alt: String
 }
