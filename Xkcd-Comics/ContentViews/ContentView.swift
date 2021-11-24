@@ -10,21 +10,35 @@ import Kingfisher
 
 struct ContentView: View {
     @StateObject var comicsVM = ComicsVM()
+    @State private var showingInfo = false
+    
     
     var body: some View {
-        VStack{
-            Text(comicsVM.title)
-                .padding()
-            Text("\(comicsVM.num)")
-                .padding()
-            Text(comicsVM.alt)
-                .padding()
-            Text(comicsVM.img)
-                .padding()
-            
-            KFImage(URL(string: comicsVM.img))
+        NavigationView{
+            VStack{
+                
+                
+                if showingInfo {
+                    Text(comicsVM.alt)
+                        .font(.title2)
+                        
+                    
+                } else {
+                    KFImage(URL(string: comicsVM.img))
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        
+                }
+                
+                
+                
+            }.navigationTitle(comicsVM.title)
+            .onTapGesture {
+                showingInfo.toggle()
+                
+            }
         }
-        
     }
 }
 
