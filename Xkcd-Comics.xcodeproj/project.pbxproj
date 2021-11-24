@@ -11,6 +11,8 @@
 		B9D1AD34274E182200028CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD33274E182200028CF6 /* ContentView.swift */; };
 		B9D1AD36274E182300028CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D1AD35274E182300028CF6 /* Assets.xcassets */; };
 		B9D1AD39274E182300028CF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D1AD38274E182300028CF6 /* Preview Assets.xcassets */; };
+		B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */; };
+		B9D1AD47274E209500028CF6 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD46274E209500028CF6 /* Comic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		B9D1AD35274E182300028CF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9D1AD38274E182300028CF6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B9D1AD3A274E182300028CF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsVM.swift; sourceTree = "<group>"; };
+		B9D1AD46274E209500028CF6 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +56,11 @@
 		B9D1AD30274E182200028CF6 /* Xkcd-Comics */ = {
 			isa = PBXGroup;
 			children = (
+				B9D1AD43274E1CCA00028CF6 /* ContentViews */,
+				B9D1AD42274E1CB600028CF6 /* Views */,
+				B9D1AD41274E1C8D00028CF6 /* ViewModels */,
+				B9D1AD40274E1C8400028CF6 /* Models */,
 				B9D1AD31274E182200028CF6 /* Xkcd_ComicsApp.swift */,
-				B9D1AD33274E182200028CF6 /* ContentView.swift */,
 				B9D1AD35274E182300028CF6 /* Assets.xcassets */,
 				B9D1AD3A274E182300028CF6 /* Info.plist */,
 				B9D1AD37274E182300028CF6 /* Preview Content */,
@@ -67,6 +74,37 @@
 				B9D1AD38274E182300028CF6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B9D1AD40274E1C8400028CF6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B9D1AD46274E209500028CF6 /* Comic.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B9D1AD41274E1C8D00028CF6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B9D1AD42274E1CB600028CF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9D1AD43274E1CCA00028CF6 /* ContentViews */ = {
+			isa = PBXGroup;
+			children = (
+				B9D1AD33274E182200028CF6 /* ContentView.swift */,
+			);
+			path = ContentViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +177,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9D1AD34274E182200028CF6 /* ContentView.swift in Sources */,
+				B9D1AD47274E209500028CF6 /* Comic.swift in Sources */,
+				B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */,
 				B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
