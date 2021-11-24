@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var comicsVM = ComicsVM()
+    
     var body: some View {
-        Text("Hello, world!")
+        Text(comicsVM.title)
             .padding()
     }
 }
