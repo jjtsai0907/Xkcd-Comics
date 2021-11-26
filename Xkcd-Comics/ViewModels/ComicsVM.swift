@@ -14,6 +14,8 @@ class ComicsVM: ObservableObject {
     @Published var comicObjectList: [Comic] = []
     
     @Published var ifSaved = false
+    @Published var showingNextComicAlert = false
+    @Published var showingPreviousComicAlert = false
     
     // Description
     @Published var showingExplanation = false
@@ -28,7 +30,7 @@ class ComicsVM: ObservableObject {
     }
     
     func fetchComics() {
-        guard let url = URL(string: "https://xkcd.com/100/info.0.json") else { return }
+        guard let url = URL(string: "https://xkcd.com/info.0.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -74,6 +76,9 @@ class ComicsVM: ObservableObject {
                 }
                 
             } catch {
+                DispatchQueue.main.async {
+                    self.showingPreviousComicAlert = true
+                }
                 print("failed")
             }
             
@@ -103,9 +108,12 @@ class ComicsVM: ObservableObject {
                 }
                 
             } catch {
+                
+                DispatchQueue.main.async {
+                    self.showingNextComicAlert = true
+                }
                 print("failed")
             }
-            
             
         }
         
@@ -147,7 +155,6 @@ class ComicsVM: ObservableObject {
                 } catch {
                     print("failed")
                 }
-                
                 
             }
             
