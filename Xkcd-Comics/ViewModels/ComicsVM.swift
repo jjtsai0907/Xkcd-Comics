@@ -17,7 +17,7 @@ class ComicsVM: ObservableObject {
     @Published var showingNextComicAlert = false
     @Published var showingPreviousComicAlert = false
     
-    // Description
+    // Explanation
     @Published var showingExplanation = false
     @Published var showingInfo = false
     
@@ -43,17 +43,12 @@ class ComicsVM: ObservableObject {
                 DispatchQueue.main.async {
                     self.comicObject = model
                     self.checkIfSaved(comic: model)
-                    
                 }
                 
             } catch {
                 print("failed")
             }
-            
-            
         }
-        
-        
         task.resume()
     }
     
@@ -106,7 +101,6 @@ class ComicsVM: ObservableObject {
                     self.comicObject = model
                     self.checkIfSaved(comic: model)
                 }
-                
             } catch {
                 
                 DispatchQueue.main.async {
@@ -114,10 +108,7 @@ class ComicsVM: ObservableObject {
                 }
                 print("failed")
             }
-            
         }
-        
-        
         task.resume()
     }
     
@@ -144,20 +135,17 @@ class ComicsVM: ObservableObject {
                     let model = try JSONDecoder().decode(Comic.self, from: data)
                     print(model.title)
                     
-                    
                     DispatchQueue.main.async {
                         self.comicObject = model
                         self.showingSearch = false
                         self.checkIfSaved(comic: model)
                     }
                     
-                    
                 } catch {
                     print("failed")
                 }
                 
             }
-            
             
             task.resume()
         
