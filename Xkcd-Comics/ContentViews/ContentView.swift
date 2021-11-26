@@ -10,8 +10,6 @@ import Kingfisher
 
 struct ContentView: View {
     @StateObject var comicsVM = ComicsVM()
-    @State private var showingInfo = false
-    
     
     
     var body: some View {
@@ -19,7 +17,7 @@ struct ContentView: View {
             VStack{
                 Spacer()
                 
-                if showingInfo {
+                if comicsVM.showingInfo {
                     VStack{
                         Text(comicsVM.alt)
                             .font(.title2)
@@ -60,7 +58,7 @@ struct ContentView: View {
                 
             }.navigationTitle(comicsVM.title)
             .onTapGesture {
-                showingInfo.toggle()
+                comicsVM.showingInfo.toggle()
                 
             }
             .navigationBarItems(trailing: HStack{
@@ -87,12 +85,29 @@ struct ContentView: View {
                 .padding(.trailing)
                 
                 Button(action: {
-                    print("Favourite")
+                    comicsVM.saveAsFavourite()
                 }, label: {
-                    Image(systemName: "heart")
+                    if comicsVM.ifSaved {
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    } else {
+                        Image(systemName: "heart")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    }
+                    
+                }).padding(.trailing)
+                
+                Button(action: {
+                    comicsVM.getFavouriteComic()
+                }, label: {
+                    Image(systemName: "square.and.arrow.down.on.square.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
                 })
+                
+                
             })
             
             
