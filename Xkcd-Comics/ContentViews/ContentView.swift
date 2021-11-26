@@ -19,9 +19,13 @@ struct ContentView: View {
                 
                 if comicsVM.showingInfo {
                     VStack{
+                        
                         Text(comicsVM.comicObject?.alt ?? "Default")
                             .font(.title2)
-                        //Text()
+                            .bold()
+                            .padding()
+                        
+                        Text("Comic Number: \(comicsVM.comicObject?.num ?? -1)  Created: \(comicsVM.comicObject?.month ?? "month")/\(comicsVM.comicObject?.year ?? "year")").foregroundColor(.gray)
                         
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
