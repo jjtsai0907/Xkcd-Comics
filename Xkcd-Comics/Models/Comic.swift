@@ -12,4 +12,6 @@ struct Comic: Codable, Equatable {
     let title: String
     let img: String
     let alt: String
+    let year: String
+    let month: String
 }

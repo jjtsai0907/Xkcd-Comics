@@ -18,6 +18,7 @@
 		B9D1AD39274E182300028CF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9D1AD38274E182300028CF6 /* Preview Assets.xcassets */; };
 		B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */; };
 		B9D1AD47274E209500028CF6 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD46274E209500028CF6 /* Comic.swift */; };
+		B9EBD7B12750D36D003631EB /* IconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBD7B02750D36D003631EB /* IconButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		B9D1AD3A274E182300028CF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsVM.swift; sourceTree = "<group>"; };
 		B9D1AD46274E209500028CF6 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
+		B9EBD7B02750D36D003631EB /* IconButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AF8CC2274E3CCC00B1552B /* ButtonView.swift */,
+				B9EBD7B02750D36D003631EB /* IconButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				B9AF8CC5274E4D8F00B1552B /* ExplanationSheet.swift in Sources */,
 				B9D1AD47274E209500028CF6 /* Comic.swift in Sources */,
 				B9AF8CC3274E3CCC00B1552B /* ButtonView.swift in Sources */,
+				B9EBD7B12750D36D003631EB /* IconButtonView.swift in Sources */,
 				B9AF8CC7274E554400B1552B /* ExplanationSheetVM.swift in Sources */,
 				B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */,
 				B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */,

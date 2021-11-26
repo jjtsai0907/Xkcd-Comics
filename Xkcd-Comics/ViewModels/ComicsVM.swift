@@ -15,11 +15,6 @@ class ComicsVM: ObservableObject {
     
     @Published var ifSaved = false
     
-    @Published var num = 0
-    @Published var title: String = "Default"
-    @Published var img: String = "Default"
-    @Published var alt: String = "Default"
-    
     // Description
     @Published var showingDescription = false
     @Published var showingInfo = false
@@ -45,10 +40,6 @@ class ComicsVM: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self.comicObject = model
-                    self.num = model.num
-                    self.title = model.title
-                    self.img = model.img
-                    self.alt = model.alt
                     self.checkIfSaved(comic: model)
                     
                 }
@@ -66,7 +57,7 @@ class ComicsVM: ObservableObject {
     
     func fetchPreviousComic() {
         
-        guard let url = URL(string: "https://xkcd.com/\(num - 1)/info.0.json") else { return }
+        guard let url = URL(string: "https://xkcd.com/\(comicObject!.num - 1)/info.0.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -78,10 +69,6 @@ class ComicsVM: ObservableObject {
                 
                 
                 DispatchQueue.main.async {
-                    self.num = model.num
-                    self.title = model.title
-                    self.img = model.img
-                    self.alt = model.alt
                     self.comicObject = model
                     self.checkIfSaved(comic: model)
                 }
@@ -100,7 +87,7 @@ class ComicsVM: ObservableObject {
     
     func fetchNextComic() {
         
-        guard let url = URL(string: "https://xkcd.com/\(num + 1)/info.0.json") else { return }
+        guard let url = URL(string: "https://xkcd.com/\( comicObject!.num + 1)/info.0.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -111,10 +98,6 @@ class ComicsVM: ObservableObject {
                 print(model.title)
                 
                 DispatchQueue.main.async {
-                    self.num = model.num
-                    self.title = model.title
-                    self.img = model.img
-                    self.alt = model.alt
                     self.comicObject = model
                     self.checkIfSaved(comic: model)
                 }
@@ -155,10 +138,6 @@ class ComicsVM: ObservableObject {
                     
                     
                     DispatchQueue.main.async {
-                        self.num = model.num
-                        self.title = model.title
-                        self.img = model.img
-                        self.alt = model.alt
                         self.comicObject = model
                         self.showingSearch = false
                         self.checkIfSaved(comic: model)
