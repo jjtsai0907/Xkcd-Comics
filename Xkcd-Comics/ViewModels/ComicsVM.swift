@@ -13,6 +13,8 @@ class ComicsVM: ObservableObject {
     @Published var comicObject: Comic? = nil
     @Published var comicObjectList: [Comic] = []
     
+    @Published var ifSaved = false
+    
     @Published var num = 0
     @Published var title: String = "Default"
     @Published var img: String = "Default"
@@ -20,7 +22,7 @@ class ComicsVM: ObservableObject {
     
     // Description
     @Published var showingDescription = false
-    
+    @Published var showingInfo = false
     
     // Search
     @Published var showingSearch = false
@@ -47,6 +49,8 @@ class ComicsVM: ObservableObject {
                     self.title = model.title
                     self.img = model.img
                     self.alt = model.alt
+                    self.checkIfSaved(comic: model)
+                    
                 }
                 
             } catch {
@@ -79,6 +83,7 @@ class ComicsVM: ObservableObject {
                     self.img = model.img
                     self.alt = model.alt
                     self.comicObject = model
+                    self.checkIfSaved(comic: model)
                 }
                 
             } catch {
@@ -111,6 +116,7 @@ class ComicsVM: ObservableObject {
                     self.img = model.img
                     self.alt = model.alt
                     self.comicObject = model
+                    self.checkIfSaved(comic: model)
                 }
                 
             } catch {
@@ -155,6 +161,7 @@ class ComicsVM: ObservableObject {
                         self.alt = model.alt
                         self.comicObject = model
                         self.showingSearch = false
+                        self.checkIfSaved(comic: model)
                     }
                     
                     
@@ -183,6 +190,7 @@ class ComicsVM: ObservableObject {
         if let encodedData = try? JSONEncoder().encode(comicObjectList){
             UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
             print("saveAsFavourite()")
+            self.ifSaved = true
         }
         
     }
@@ -196,6 +204,15 @@ class ComicsVM: ObservableObject {
         
         for i in favouriteComicsList {
             print("favourite comics: \(i.title)")
+        }
+    }
+    
+    func checkIfSaved(comic: Comic) {
+        
+        if comicObjectList.contains(comic) {
+         ifSaved = true
+        } else {
+            ifSaved = false
         }
     }
     
