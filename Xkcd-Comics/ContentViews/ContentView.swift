@@ -74,39 +74,19 @@ struct ContentView: View {
                         
                 }
                 Spacer()
-                Button(action: {
+                
+                
+                IconButtonView(icon: "magnifyingglass"){
                     comicsVM.searchComic(searchNum: comicsVM.searchValue)
-                    print("Search")
-                }, label: {
-                    Image(systemName: "magnifyingglass")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                })
-                .padding(.trailing)
+                }
                 
-                Button(action: {
+                IconButtonView(icon: comicsVM.ifSaved ? "heart.fill" : "heart"){
                     comicsVM.saveAsFavourite()
-                }, label: {
-                    if comicsVM.ifSaved {
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    } else {
-                        Image(systemName: "heart")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
-                    
-                }).padding(.trailing)
+                }
                 
-                Button(action: {
+                IconButtonView(icon: "person.fill"){
                     comicsVM.getFavouriteComic()
-                }, label: {
-                    Image(systemName: "square.and.arrow.down.on.square.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                })
-                
+                }
                 
             })
             
