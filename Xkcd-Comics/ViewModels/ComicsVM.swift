@@ -10,13 +10,13 @@ import Foundation
 class ComicsVM: ObservableObject {
     
     let USER_DEFAULTS_KEY = "saved_comic"
-    @Published var comicObject: Comic? = nil
+    @Published var comicObject: Comic = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
     @Published var comicObjectList: [Comic] = []
     
     @Published var ifSaved = false
     
     // Description
-    @Published var showingDescription = false
+    @Published var showingExplanation = false
     @Published var showingInfo = false
     
     // Search
@@ -57,7 +57,7 @@ class ComicsVM: ObservableObject {
     
     func fetchPreviousComic() {
         
-        guard let url = URL(string: "https://xkcd.com/\(comicObject!.num - 1)/info.0.json") else { return }
+        guard let url = URL(string: "https://xkcd.com/\(comicObject.num - 1)/info.0.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -87,7 +87,7 @@ class ComicsVM: ObservableObject {
     
     func fetchNextComic() {
         
-        guard let url = URL(string: "https://xkcd.com/\( comicObject!.num + 1)/info.0.json") else { return }
+        guard let url = URL(string: "https://xkcd.com/\( comicObject.num + 1)/info.0.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -117,7 +117,7 @@ class ComicsVM: ObservableObject {
     
     
     func showDescription() {
-        showingDescription.toggle()
+        showingExplanation.toggle()
     }
     
     func searchComic(searchNum: String) {
@@ -161,11 +161,11 @@ class ComicsVM: ObservableObject {
         
     }
     
-    func saveAsFavourite() {
+    func saveAsFavourite(comic: Comic) {
         
         // transform the ComicObject into a JsonFile, and then save it with UserDefaults
         
-        comicObjectList.append(comicObject!)
+        comicObjectList.append(comic)
         if let encodedData = try? JSONEncoder().encode(comicObjectList){
             UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
             print("saveAsFavourite()")
