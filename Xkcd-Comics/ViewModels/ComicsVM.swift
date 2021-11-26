@@ -158,15 +158,18 @@ class ComicsVM: ObservableObject {
     
     func saveAsFavourite(comic: Comic) {
         
-        // transform the ComicObject into a JsonFile, and then save it with UserDefaults
-        
-        comicObjectList.append(comic)
-        if let encodedData = try? JSONEncoder().encode(comicObjectList){
-            UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
-            print("saveAsFavourite()")
-            self.ifSaved = true
-        }
-        
+        if comicObjectList.contains(comic) {
+         return
+        } else {
+            // transform the ComicObject into a JsonFile, and then save it with UserDefaults
+            
+            comicObjectList.append(comic)
+            if let encodedData = try? JSONEncoder().encode(comicObjectList){
+                UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
+                print("saveAsFavourite()")
+                self.ifSaved = true
+            }
+        }        
     }
     
     
