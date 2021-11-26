@@ -19,7 +19,18 @@
 		B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */; };
 		B9D1AD47274E209500028CF6 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD46274E209500028CF6 /* Comic.swift */; };
 		B9EBD7B12750D36D003631EB /* IconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBD7B02750D36D003631EB /* IconButtonView.swift */; };
+		B9EBD7B92750EB97003631EB /* Xkcd_ComicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBD7B82750EB97003631EB /* Xkcd_ComicsTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B9EBD7BB2750EB97003631EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9D1AD26274E182200028CF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9D1AD2D274E182200028CF6;
+			remoteInfo = "Xkcd-Comics";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B9AF8CC2274E3CCC00B1552B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
@@ -35,6 +46,9 @@
 		B9D1AD44274E1D4800028CF6 /* ComicsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsVM.swift; sourceTree = "<group>"; };
 		B9D1AD46274E209500028CF6 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
 		B9EBD7B02750D36D003631EB /* IconButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtonView.swift; sourceTree = "<group>"; };
+		B9EBD7B62750EB96003631EB /* Xkcd-ComicsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Xkcd-ComicsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9EBD7B82750EB97003631EB /* Xkcd_ComicsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xkcd_ComicsTests.swift; sourceTree = "<group>"; };
+		B9EBD7BA2750EB97003631EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +57,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9AF8CCC274E6A7500B1552B /* Kingfisher in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9EBD7B32750EB96003631EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				B9D1AD30274E182200028CF6 /* Xkcd-Comics */,
+				B9EBD7B72750EB96003631EB /* Xkcd-ComicsTests */,
 				B9D1AD2F274E182200028CF6 /* Products */,
 				B9AF8CCA274E6A7500B1552B /* Frameworks */,
 			);
@@ -69,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				B9D1AD2E274E182200028CF6 /* Xkcd-Comics.app */,
+				B9EBD7B62750EB96003631EB /* Xkcd-ComicsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +155,15 @@
 			path = ContentViews;
 			sourceTree = "<group>";
 		};
+		B9EBD7B72750EB96003631EB /* Xkcd-ComicsTests */ = {
+			isa = PBXGroup;
+			children = (
+				B9EBD7B82750EB97003631EB /* Xkcd_ComicsTests.swift */,
+				B9EBD7BA2750EB97003631EB /* Info.plist */,
+			);
+			path = "Xkcd-ComicsTests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,6 +187,24 @@
 			productReference = B9D1AD2E274E182200028CF6 /* Xkcd-Comics.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B9EBD7B52750EB96003631EB /* Xkcd-ComicsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9EBD7BF2750EB97003631EB /* Build configuration list for PBXNativeTarget "Xkcd-ComicsTests" */;
+			buildPhases = (
+				B9EBD7B22750EB96003631EB /* Sources */,
+				B9EBD7B32750EB96003631EB /* Frameworks */,
+				B9EBD7B42750EB96003631EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B9EBD7BC2750EB97003631EB /* PBXTargetDependency */,
+			);
+			name = "Xkcd-ComicsTests";
+			productName = "Xkcd-ComicsTests";
+			productReference = B9EBD7B62750EB96003631EB /* Xkcd-ComicsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -166,6 +216,10 @@
 				TargetAttributes = {
 					B9D1AD2D274E182200028CF6 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					B9EBD7B52750EB96003631EB = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = B9D1AD2D274E182200028CF6;
 					};
 				};
 			};
@@ -186,6 +240,7 @@
 			projectRoot = "";
 			targets = (
 				B9D1AD2D274E182200028CF6 /* Xkcd-Comics */,
+				B9EBD7B52750EB96003631EB /* Xkcd-ComicsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -197,6 +252,13 @@
 			files = (
 				B9D1AD39274E182300028CF6 /* Preview Assets.xcassets in Resources */,
 				B9D1AD36274E182300028CF6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9EBD7B42750EB96003631EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +281,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B9EBD7B22750EB96003631EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9EBD7B92750EB97003631EB /* Xkcd_ComicsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B9EBD7BC2750EB97003631EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9D1AD2D274E182200028CF6 /* Xkcd-Comics */;
+			targetProxy = B9EBD7BB2750EB97003631EB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B9D1AD3B274E182300028CF6 /* Debug */ = {
@@ -380,6 +458,44 @@
 			};
 			name = Release;
 		};
+		B9EBD7BD2750EB97003631EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Xkcd-ComicsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsai.jiajiuan.Xkcd-ComicsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Xkcd-Comics.app/Xkcd-Comics";
+			};
+			name = Debug;
+		};
+		B9EBD7BE2750EB97003631EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Xkcd-ComicsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tsai.jiajiuan.Xkcd-ComicsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Xkcd-Comics.app/Xkcd-Comics";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -397,6 +513,15 @@
 			buildConfigurations = (
 				B9D1AD3E274E182300028CF6 /* Debug */,
 				B9D1AD3F274E182300028CF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B9EBD7BF2750EB97003631EB /* Build configuration list for PBXNativeTarget "Xkcd-ComicsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9EBD7BD2750EB97003631EB /* Debug */,
+				B9EBD7BE2750EB97003631EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

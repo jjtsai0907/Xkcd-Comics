@@ -20,23 +20,23 @@ struct ContentView: View {
                 if comicsVM.showingInfo {
                     VStack{
                         
-                        Text(comicsVM.comicObject?.alt ?? "Default")
+                        Text(comicsVM.comicObject.alt)
                             .font(.title2)
                             .bold()
                             .padding()
                         
-                        Text("Comic Number: \(comicsVM.comicObject?.num ?? -1)  Created: \(comicsVM.comicObject?.month ?? "month")/\(comicsVM.comicObject?.year ?? "year")").foregroundColor(.gray)
+                        Text("Comic Number: \(comicsVM.comicObject.num)  Created: \(comicsVM.comicObject.month )/\(comicsVM.comicObject.year)").foregroundColor(.gray)
                         
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
                                 comicsVM.showDescription()
-                            }.sheet(isPresented: $comicsVM.showingDescription, content:{ExplanationSheet(num: comicsVM.comicObject?.num ?? 100)})
+                            }.sheet(isPresented: $comicsVM.showingDescription, content:{ExplanationSheet(num: comicsVM.comicObject.num)})
                         }
                     }
                     
                     
                 } else {
-                    KFImage(URL(string: comicsVM.comicObject?.img ?? "Image"))
+                    KFImage(URL(string: comicsVM.comicObject.img))
                         .resizable()
                         .scaledToFit()
                         .padding()
@@ -60,7 +60,7 @@ struct ContentView: View {
                 }
                 
                 
-            }.navigationTitle(comicsVM.comicObject?.title ?? "Title")
+            }.navigationTitle(comicsVM.comicObject.title)
             .onTapGesture {
                 comicsVM.showingInfo.toggle()
                 
@@ -85,7 +85,7 @@ struct ContentView: View {
                 }
                 
                 IconButtonView(icon: comicsVM.ifSaved ? "heart.fill" : "heart"){
-                    comicsVM.saveAsFavourite()
+                    comicsVM.saveAsFavourite(comic: comicsVM.comicObject)
                 }
                 
                 IconButtonView(icon: "person.fill"){
