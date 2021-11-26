@@ -50,12 +50,25 @@ struct ContentView: View {
                         comicsVM.fetchPreviousComic()
                         
                     }
+                    .alert(isPresented: $comicsVM.showingPreviousComicAlert) {
+                        
+                        Alert(
+                            title: Text("More Comic?"),
+                            message: Text("This is our very first comic ^3^")
+                        )
+                    }
                     
                     Spacer()
                     
                     ButtonView(icon: "arrowshape.turn.up.forward", title:"Next"){
                         comicsVM.fetchNextComic()
                         
+                    }.alert(isPresented: $comicsVM.showingNextComicAlert) {
+                        
+                        Alert(
+                            title: Text("New Comic?"),
+                            message: Text("This is our latest comic! Come back tomorrow ^3^")
+                        )
                     }
                 }
                 

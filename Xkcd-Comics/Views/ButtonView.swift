@@ -10,19 +10,26 @@ import SwiftUI
 struct ButtonView: View {
     
     var icon: String
-     var title: String
-     var function: () -> ()
+    var title: String
+    var function: () -> ()
     
     var body: some View {
         Button(action: {
             function()
         }, label: {
             HStack{
-                Image(systemName: icon)
-                Text(title)
+                if title == "Next" {
+                    Text(title)
+                    Image(systemName: icon)
+                } else {
+                    Image(systemName: icon)
+                    Text(title)
+                }
+                
             }
             
         }).padding()
+        
     }
 }
 

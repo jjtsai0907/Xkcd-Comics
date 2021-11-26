@@ -14,8 +14,10 @@ class ComicsVM: ObservableObject {
     @Published var comicObjectList: [Comic] = []
     
     @Published var ifSaved = false
+    @Published var showingNextComicAlert = false
+    @Published var showingPreviousComicAlert = false
     
-    // Description
+    // Explanation
     @Published var showingExplanation = false
     @Published var showingInfo = false
     
@@ -28,7 +30,7 @@ class ComicsVM: ObservableObject {
     }
     
     func fetchComics() {
-        guard let url = URL(string: "https://xkcd.com/100/info.0.json") else { return }
+        guard let url = URL(string: "https://xkcd.com/info.0.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -41,17 +43,12 @@ class ComicsVM: ObservableObject {
                 DispatchQueue.main.async {
                     self.comicObject = model
                     self.checkIfSaved(comic: model)
-                    
                 }
                 
             } catch {
                 print("failed")
             }
-            
-            
         }
-        
-        
         task.resume()
     }
     
@@ -74,6 +71,9 @@ class ComicsVM: ObservableObject {
                 }
                 
             } catch {
+                DispatchQueue.main.async {
+                    self.showingPreviousComicAlert = true
+                }
                 print("failed")
             }
             
@@ -101,15 +101,14 @@ class ComicsVM: ObservableObject {
                     self.comicObject = model
                     self.checkIfSaved(comic: model)
                 }
-                
             } catch {
+                
+                DispatchQueue.main.async {
+                    self.showingNextComicAlert = true
+                }
                 print("failed")
             }
-            
-            
         }
-        
-        
         task.resume()
     }
     
@@ -136,21 +135,17 @@ class ComicsVM: ObservableObject {
                     let model = try JSONDecoder().decode(Comic.self, from: data)
                     print(model.title)
                     
-                    
                     DispatchQueue.main.async {
                         self.comicObject = model
                         self.showingSearch = false
                         self.checkIfSaved(comic: model)
                     }
                     
-                    
                 } catch {
                     print("failed")
                 }
                 
-                
             }
-            
             
             task.resume()
         
@@ -163,15 +158,18 @@ class ComicsVM: ObservableObject {
     
     func saveAsFavourite(comic: Comic) {
         
-        // transform the ComicObject into a JsonFile, and then save it with UserDefaults
-        
-        comicObjectList.append(comic)
-        if let encodedData = try? JSONEncoder().encode(comicObjectList){
-            UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
-            print("saveAsFavourite()")
-            self.ifSaved = true
-        }
-        
+        if comicObjectList.contains(comic) {
+         return
+        } else {
+            // transform the ComicObject into a JsonFile, and then save it with UserDefaults
+            
+            comicObjectList.append(comic)
+            if let encodedData = try? JSONEncoder().encode(comicObjectList){
+                UserDefaults.standard.set(encodedData, forKey: USER_DEFAULTS_KEY)
+                print("saveAsFavourite()")
+                self.ifSaved = true
+            }
+        }        
     }
     
     
