@@ -16,7 +16,7 @@ class ComicsVM: ObservableObject {
     @Published var ifSaved = false
     
     // Description
-    @Published var showingDescription = false
+    @Published var showingExplanation = false
     @Published var showingInfo = false
     
     // Search
@@ -117,7 +117,7 @@ class ComicsVM: ObservableObject {
     
     
     func showDescription() {
-        showingDescription.toggle()
+        showingExplanation.toggle()
     }
     
     func searchComic(searchNum: String) {

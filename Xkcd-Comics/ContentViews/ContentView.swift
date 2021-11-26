@@ -30,7 +30,7 @@ struct ContentView: View {
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
                                 comicsVM.showDescription()
-                            }.sheet(isPresented: $comicsVM.showingDescription, content:{ExplanationSheet(num: comicsVM.comicObject.num)})
+                            }.sheet(isPresented: $comicsVM.showingExplanation, content:{ExplanationSheet(num: comicsVM.comicObject.num)})
                         }
                     }
                     

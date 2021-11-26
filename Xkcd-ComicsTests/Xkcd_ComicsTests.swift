@@ -32,5 +32,28 @@ class Xkcd_ComicsTests: XCTestCase {
         // Then
         XCTAssertTrue(vm.ifSaved)
     }
+    
+    func test_ComicsVM_comicObjectList_shouldBeEmpty() {
+        // Given
+        
+        // When
+        let vm = ComicsVM()
+        
+        // Then
+        XCTAssertTrue(vm.comicObjectList.isEmpty)
+    }
+    
+    
+    func test_ComicsVM_comicObjectList_shouldSaveAsFavourite() {
+        // Given
+        let comic = Comic(num: 1, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
+        let vm = ComicsVM()
+        
+        // When
+        vm.saveAsFavourite(comic: comic)
+        
+        // Then
+        XCTAssertEqual(vm.comicObjectList.count, 1)
+    }
 
 }
