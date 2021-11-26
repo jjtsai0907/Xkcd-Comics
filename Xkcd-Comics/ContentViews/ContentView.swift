@@ -19,20 +19,20 @@ struct ContentView: View {
                 
                 if comicsVM.showingInfo {
                     VStack{
-                        Text(comicsVM.alt)
+                        Text(comicsVM.comicObject?.alt ?? "Default")
                             .font(.title2)
-                        Text("\(comicsVM.num)")
+                        //Text()
                         
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
                                 comicsVM.showDescription()
-                            }.sheet(isPresented: $comicsVM.showingDescription, content:{ExplanationSheet(num: comicsVM.num)})
+                            }.sheet(isPresented: $comicsVM.showingDescription, content:{ExplanationSheet(num: comicsVM.comicObject?.num ?? 100)})
                         }
                     }
                     
                     
                 } else {
-                    KFImage(URL(string: comicsVM.img))
+                    KFImage(URL(string: comicsVM.comicObject?.img ?? "Image"))
                         .resizable()
                         .scaledToFit()
                         .padding()
@@ -56,7 +56,7 @@ struct ContentView: View {
                 }
                 
                 
-            }.navigationTitle(comicsVM.title)
+            }.navigationTitle(comicsVM.comicObject?.title ?? "Title")
             .onTapGesture {
                 comicsVM.showingInfo.toggle()
                 
