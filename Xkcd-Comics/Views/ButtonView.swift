@@ -11,13 +11,13 @@ struct ButtonView: View {
     
     var icon: String
     var title: String
-    var function: () -> ()
+    var function: () -> Void
     
     var body: some View {
         Button(action: {
             function()
         }, label: {
-            HStack{
+            HStack {
                 if title == "Next" {
                     Text(title)
                     Image(systemName: icon)
@@ -25,11 +25,8 @@ struct ButtonView: View {
                     Image(systemName: icon)
                     Text(title)
                 }
-                
             }
-            
         }).padding()
-        
     }
 }
 

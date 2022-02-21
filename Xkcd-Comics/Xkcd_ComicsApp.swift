@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Xkcd_ComicsApp: App {
+struct XkcdComicsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

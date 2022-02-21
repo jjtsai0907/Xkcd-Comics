@@ -11,7 +11,7 @@ import XCTest
 // Naming Structure: test_UnitOfWork_StateUnderTest_ExpectedBehavior
 // Testing Structure: Given, When, Then
 
-class Xkcd_ComicsTests: XCTestCase {
+class XkcdComicsTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -24,36 +24,29 @@ class Xkcd_ComicsTests: XCTestCase {
     func test_ComicsVM_ifSaved_shouldBeTrue() {
         // Given
         let comic = Comic(num: 1, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
-        
         // When
-        let vm = ComicsVM()
-        vm.saveAsFavourite(comic: comic)
-        
+        let viewModel = ComicsVM()
+        viewModel.saveAsFavourite(comic: comic)
         // Then
-        XCTAssertTrue(vm.ifSaved)
+        XCTAssertTrue(viewModel.ifSaved)
     }
     
     func test_ComicsVM_comicObjectList_shouldBeEmpty() {
         // Given
-        
         // When
-        let vm = ComicsVM()
-        
+        let viewModel = ComicsVM()
         // Then
-        XCTAssertTrue(vm.comicObjectList.isEmpty)
+        XCTAssertTrue(viewModel.comicObjectList.isEmpty)
     }
-    
     
     func test_ComicsVM_comicObjectList_shouldSaveAsFavourite() {
         // Given
         let comic = Comic(num: 1, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
-        let vm = ComicsVM()
-        
+        let viewModel = ComicsVM()
         // When
-        vm.saveAsFavourite(comic: comic)
-        
+        viewModel.saveAsFavourite(comic: comic)
         // Then
-        XCTAssertEqual(vm.comicObjectList.count, 1)
+        XCTAssertEqual(viewModel.comicObjectList.count, 1)
     }
 
 }
