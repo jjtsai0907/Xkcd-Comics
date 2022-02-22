@@ -11,10 +11,9 @@ import Kingfisher
 struct ContentView: View {
     @StateObject var viewModel : ComicsVM
     
-    
     var body: some View {
-        NavigationView{
-            VStack{
+        NavigationView {
+            VStack {
                 Spacer()
                 
                 if viewModel.showingInfo {
@@ -38,9 +37,7 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFit()
                         .padding()
-                        
                 }
-                
                 Spacer()
                 
                 HStack{
@@ -54,7 +51,6 @@ struct ContentView: View {
                             message: Text("This is our very first comic ^3^")
                         )
                     }
-                    
                     Spacer()
                     
                     ButtonView(icon: "arrowshape.turn.up.forward", title:"Next"){
@@ -101,12 +97,9 @@ struct ContentView: View {
                 IconButtonView(icon: "person.fill"){
                     viewModel.getFavouriteComic()
                 }
-                
             })
-            
-            
         }
-    }
+    }    
 }
 
 /*struct ContentView_Previews: PreviewProvider {

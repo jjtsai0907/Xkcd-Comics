@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ButtonView: View {
-    let icon: String
-    let title: String
-    let function: () -> ()
+    var icon: String
+    var title: String
+    var function: () -> Void
     
     var body: some View {
         Button(action: {
             function()
         }, label: {
-            HStack{
+            HStack {
                 if title == "Next" {
                     Text(title)
                     Image(systemName: icon)
@@ -25,7 +25,7 @@ struct ButtonView: View {
                     Text(title)
                 }
             }
-        }).padding()        
+        }).padding()
     }
 }
 
