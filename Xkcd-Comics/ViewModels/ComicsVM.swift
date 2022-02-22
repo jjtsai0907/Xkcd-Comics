@@ -10,7 +10,7 @@ import Foundation
 class ComicsVM: ObservableObject {
     @Published var comicObject = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
     @Published var comicObjectList: [Comic] = []
-    @Published var ifSaved = false
+    @Published var isSaved = false
     @Published var showingNextComicAlert = false
     @Published var showingPreviousComicAlert = false
     // Explanation
@@ -128,8 +128,8 @@ class ComicsVM: ObservableObject {
             comicObjectList.append(comic)
             if let encodedData = try? JSONEncoder().encode(comicObjectList) {
                 UserDefaults.standard.set(encodedData, forKey: Constants.userDefaultsKey)
-                print("ComicVM, saveing as favourite")
-                self.ifSaved = true
+                print("ComicVM, saving as favourite")
+                self.isSaved = true
             }
         }
     }
@@ -146,13 +146,13 @@ class ComicsVM: ObservableObject {
     
     func checkIfSaved(comic: Comic) {
         if comicObjectList.contains(comic) {
-            ifSaved = true
+            isSaved = true
         } else {
-            ifSaved = false
+            isSaved = false
         }
     }
-}
-
-enum Constants {
-    static let userDefaultsKey = "saved_comic"
+    
+    private enum Constants {
+        static let userDefaultsKey = "saved_comic"
+    }
 }

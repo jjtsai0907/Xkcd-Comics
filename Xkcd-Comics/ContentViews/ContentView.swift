@@ -74,7 +74,7 @@ struct ContentView: View {
                 IconButtonView(icon: "magnifyingglass") {
                     comicsVM.searchComic(searchNum: comicsVM.searchValue)
                 }
-                IconButtonView(icon: comicsVM.ifSaved ? "heart.fill" : "heart") {
+                IconButtonView(icon: comicsVM.isSaved ? "heart.fill" : "heart") {
                     comicsVM.saveAsFavourite(comic: comicsVM.comicObject)
                 }
                 IconButtonView(icon: "person.fill") {
