@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ContentView: View {
-    @StateObject var viewModel : ComicsVM
+    @StateObject var viewModel: ComicsVM
     
     var body: some View {
         NavigationView {
@@ -17,8 +17,7 @@ struct ContentView: View {
                 Spacer()
                 
                 if viewModel.showingInfo {
-                    VStack{
-                        
+                    VStack {
                         Text(viewModel.comicObject.alt)
                             .font(.title2)
                             .bold()
@@ -26,10 +25,10 @@ struct ContentView: View {
                         
                         Text("Comic Number: \(viewModel.comicObject.num)  Created: \(viewModel.comicObject.month )/\(viewModel.comicObject.year)").foregroundColor(.gray)
                         
-                        HStack{
-                            ButtonView(icon: "info.circle", title:"Explanation"){
+                        HStack {
+                            ButtonView(icon: "info.circle", title: "Explanation") {
                                 viewModel.showDescription()
-                            }.sheet(isPresented: $viewModel.showingExplanation, content:{ExplanationSheet(viewModel: ExplanationSheetVM(), num: viewModel.comicObject.num)})
+                            }.sheet(isPresented: $viewModel.showingExplanation, content: {ExplanationSheet(viewModel: ExplanationSheetVM(), num: viewModel.comicObject.num)})
                         }
                     }
                 } else {
@@ -40,12 +39,11 @@ struct ContentView: View {
                 }
                 Spacer()
                 
-                HStack{
-                    ButtonView(icon: "arrowshape.turn.up.backward", title:"Previous"){
+                HStack {
+                    ButtonView(icon: "arrowshape.turn.up.backward", title: "Previous") {
                         viewModel.fetchPreviousComic()
                     }
                     .alert(isPresented: $viewModel.showingPreviousComicAlert) {
-                        
                         Alert(
                             title: Text("More Comic?"),
                             message: Text("This is our very first comic ^3^")
@@ -53,26 +51,20 @@ struct ContentView: View {
                     }
                     Spacer()
                     
-                    ButtonView(icon: "arrowshape.turn.up.forward", title:"Next"){
+                    ButtonView(icon: "arrowshape.turn.up.forward", title: "Next") {
                         viewModel.fetchNextComic()
-                        
-                    }.alert(isPresented: $viewModel .showingNextComicAlert) {
-                        
+                    }.alert(isPresented: $viewModel .showingNextComicAlert) {                        
                         Alert(
                             title: Text("New Comic?"),
                             message: Text("This is our latest comic! Come back tomorrow ^3^")
                         )
                     }
                 }
-                
-                
             }.navigationTitle(viewModel.comicObject.title)
             .onTapGesture {
                 viewModel.showingInfo.toggle()
-                
             }
-            .navigationBarItems(trailing: HStack{
-                
+            .navigationBarItems(trailing: HStack {
                 if viewModel.showingSearch {
                     TextField("Search..", text: $viewModel.searchValue)
                         .padding(.trailing)
@@ -81,20 +73,15 @@ struct ContentView: View {
                         .background(Color(.lightGray))
                         .cornerRadius(10)
                         .keyboardType(.numberPad)
-                        
                 }
                 Spacer()
-                
-                
-                IconButtonView(icon: "magnifyingglass"){
+                IconButtonView(icon: "magnifyingglass") {
                     viewModel.searchComic(searchNum: viewModel.searchValue)
                 }
-                
-                IconButtonView(icon: viewModel.ifSaved ? "heart.fill" : "heart"){
+                IconButtonView(icon: viewModel.isSaved ? "heart.fill" : "heart") {
                     viewModel.saveAsFavourite(comic: viewModel.comicObject)
                 }
-                
-                IconButtonView(icon: "person.fill"){
+                IconButtonView(icon: "person.fill") {
                     viewModel.getFavouriteComic()
                 }
             })

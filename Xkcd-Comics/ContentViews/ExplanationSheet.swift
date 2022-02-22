@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExplanationSheet: View {
-    let viewModel : ExplanationSheetVM
+    let viewModel: ExplanationSheetVM
     let num: Int
     
     var body: some View {

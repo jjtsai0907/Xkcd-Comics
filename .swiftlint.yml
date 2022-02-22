@@ -2,4 +2,4 @@
 disabled_rules:
     - closure_body_length
     - trailing_whitespace
-line_length: 160
+line_length: 180
