@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ButtonView: View {
-    
-    var icon: String
-    var title: String
-    var function: () -> ()
+    let icon: String
+    let title: String
+    let function: () -> ()
     
     var body: some View {
         Button(action: {
@@ -25,11 +24,8 @@ struct ButtonView: View {
                     Image(systemName: icon)
                     Text(title)
                 }
-                
             }
-            
-        }).padding()
-        
+        }).padding()        
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ContentView: View {
-    @StateObject var comicsVM = ComicsVM()
+    @StateObject var viewModel : ComicsVM
     
     
     var body: some View {
@@ -17,26 +17,24 @@ struct ContentView: View {
             VStack{
                 Spacer()
                 
-                if comicsVM.showingInfo {
+                if viewModel.showingInfo {
                     VStack{
                         
-                        Text(comicsVM.comicObject.alt)
+                        Text(viewModel.comicObject.alt)
                             .font(.title2)
                             .bold()
                             .padding()
                         
-                        Text("Comic Number: \(comicsVM.comicObject.num)  Created: \(comicsVM.comicObject.month )/\(comicsVM.comicObject.year)").foregroundColor(.gray)
+                        Text("Comic Number: \(viewModel.comicObject.num)  Created: \(viewModel.comicObject.month )/\(viewModel.comicObject.year)").foregroundColor(.gray)
                         
                         HStack{
                             ButtonView(icon: "info.circle", title:"Explanation"){
-                                comicsVM.showDescription()
-                            }.sheet(isPresented: $comicsVM.showingExplanation, content:{ExplanationSheet(num: comicsVM.comicObject.num)})
+                                viewModel.showDescription()
+                            }.sheet(isPresented: $viewModel.showingExplanation, content:{ExplanationSheet(viewModel: ExplanationSheetVM(), num: viewModel.comicObject.num)})
                         }
                     }
-                    
-                    
                 } else {
-                    KFImage(URL(string: comicsVM.comicObject.img))
+                    KFImage(URL(string: viewModel.comicObject.img))
                         .resizable()
                         .scaledToFit()
                         .padding()
@@ -47,10 +45,9 @@ struct ContentView: View {
                 
                 HStack{
                     ButtonView(icon: "arrowshape.turn.up.backward", title:"Previous"){
-                        comicsVM.fetchPreviousComic()
-                        
+                        viewModel.fetchPreviousComic()
                     }
-                    .alert(isPresented: $comicsVM.showingPreviousComicAlert) {
+                    .alert(isPresented: $viewModel.showingPreviousComicAlert) {
                         
                         Alert(
                             title: Text("More Comic?"),
@@ -61,9 +58,9 @@ struct ContentView: View {
                     Spacer()
                     
                     ButtonView(icon: "arrowshape.turn.up.forward", title:"Next"){
-                        comicsVM.fetchNextComic()
+                        viewModel.fetchNextComic()
                         
-                    }.alert(isPresented: $comicsVM.showingNextComicAlert) {
+                    }.alert(isPresented: $viewModel .showingNextComicAlert) {
                         
                         Alert(
                             title: Text("New Comic?"),
@@ -73,15 +70,15 @@ struct ContentView: View {
                 }
                 
                 
-            }.navigationTitle(comicsVM.comicObject.title)
+            }.navigationTitle(viewModel.comicObject.title)
             .onTapGesture {
-                comicsVM.showingInfo.toggle()
+                viewModel.showingInfo.toggle()
                 
             }
             .navigationBarItems(trailing: HStack{
                 
-                if comicsVM.showingSearch {
-                    TextField("Search..", text: $comicsVM.searchValue)
+                if viewModel.showingSearch {
+                    TextField("Search..", text: $viewModel.searchValue)
                         .padding(.trailing)
                         .padding(.vertical, 5)
                         .padding(.horizontal, 5)
@@ -94,15 +91,15 @@ struct ContentView: View {
                 
                 
                 IconButtonView(icon: "magnifyingglass"){
-                    comicsVM.searchComic(searchNum: comicsVM.searchValue)
+                    viewModel.searchComic(searchNum: viewModel.searchValue)
                 }
                 
-                IconButtonView(icon: comicsVM.ifSaved ? "heart.fill" : "heart"){
-                    comicsVM.saveAsFavourite(comic: comicsVM.comicObject)
+                IconButtonView(icon: viewModel.ifSaved ? "heart.fill" : "heart"){
+                    viewModel.saveAsFavourite(comic: viewModel.comicObject)
                 }
                 
                 IconButtonView(icon: "person.fill"){
-                    comicsVM.getFavouriteComic()
+                    viewModel.getFavouriteComic()
                 }
                 
             })
@@ -112,8 +109,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+/*struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
-}
+}*/

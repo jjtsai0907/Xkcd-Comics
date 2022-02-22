@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ExplanationSheet: View {
-    
-    var explainationSheetVM = ExplanationSheetVM()
-    var num: Int
+    let viewModel : ExplanationSheetVM
+    let num: Int
     
     var body: some View {
-        Webview(url: explainationSheetVM.getExplanationWebsite(comicNum: num))
+        Webview(url: viewModel.getExplanationWebsite(comicNum: num))
     }
 }
 

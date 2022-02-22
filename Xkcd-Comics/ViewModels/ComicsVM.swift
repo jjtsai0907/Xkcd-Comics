@@ -8,7 +8,6 @@
 import Foundation
 
 class ComicsVM: ObservableObject {
-    
     let USER_DEFAULTS_KEY = "saved_comic"
     @Published var comicObject: Comic = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
     @Published var comicObjectList: [Comic] = []
@@ -194,3 +193,5 @@ class ComicsVM: ObservableObject {
     }
     
 }
+
+

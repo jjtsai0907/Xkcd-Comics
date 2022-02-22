@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct IconButtonView: View {
-    
-    
-    var icon: String
-    var function: () -> ()
+    let icon: String
+    let function: () -> Void
     
     var body: some View {
         Button(action: {
