@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ButtonView: View {
-    var icon: String
-    var title: String
-    var function: () -> Void
+    let icon: String
+    let title: String
+    let function: () -> Void
     
     var body: some View {
         Button(action: {
