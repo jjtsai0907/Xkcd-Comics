@@ -26,6 +26,7 @@ class ComicsVM: ObservableObject {
     
     func fetchComics() {
         guard let url = URL(string: "https://xkcd.com/info.0.json") else { return }
+        
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
             // Convert data to Model
@@ -37,7 +38,7 @@ class ComicsVM: ObservableObject {
                     self.checkIfSaved(comic: model)
                 }
             } catch {
-                print("failed")
+                print("ComicsVM, fetching comic failed. Error: \(error)")
             }
         }
         task.resume()
@@ -45,6 +46,7 @@ class ComicsVM: ObservableObject {
     
     func fetchPreviousComic() {
         guard let url = URL(string: "https://xkcd.com/\(comicObject.num - 1)/info.0.json") else { return }
+        
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
             // Convert data to Model
@@ -59,7 +61,7 @@ class ComicsVM: ObservableObject {
                 DispatchQueue.main.async {
                     self.showingPreviousComicAlert = true
                 }
-                print("failed")
+                print("ComicsVM, fetching previous comic failed. Error: \(error)")
             }
         }
         task.resume()
@@ -67,6 +69,7 @@ class ComicsVM: ObservableObject {
     
     func fetchNextComic() {
         guard let url = URL(string: "https://xkcd.com/\( comicObject.num + 1)/info.0.json") else { return }
+        
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
             // Convert data to Model
@@ -81,12 +84,12 @@ class ComicsVM: ObservableObject {
                 DispatchQueue.main.async {
                     self.showingNextComicAlert = true
                 }
-                print("failed")
+                print("ComicsVM, fetching next comic failed. Error: \(error)")
             }
         }
         task.resume()
     }
-
+    
     func showDescription() {
         showingExplanation.toggle()
     }
@@ -95,6 +98,7 @@ class ComicsVM: ObservableObject {
         if showingSearch {
             // search function
             guard let url = URL(string: "https://xkcd.com/\(searchNum)/info.0.json") else { return }
+            
             let task = URLSession.shared.dataTask(with: url) { data, _, error in
                 guard let data = data, error == nil else { return }
                 // Convert data to Model
@@ -107,7 +111,7 @@ class ComicsVM: ObservableObject {
                         self.checkIfSaved(comic: model)
                     }
                 } catch {
-                    print("failed")
+                    print("ComicsVM, searching next comic failed. Error: \(error)")
                 }
             }
             task.resume()
@@ -118,13 +122,13 @@ class ComicsVM: ObservableObject {
     
     func saveAsFavourite(comic: Comic) {
         if comicObjectList.contains(comic) {
-         return
+            return
         } else {
             // transform the ComicObject into a JsonFile, and then save it with UserDefaults
             comicObjectList.append(comic)
             if let encodedData = try? JSONEncoder().encode(comicObjectList) {
                 UserDefaults.standard.set(encodedData, forKey: Constants.userDefaultsKey)
-                print("saveAsFavourite()")
+                print("ComicVM, saveing as favourite")
                 self.ifSaved = true
             }
         }
@@ -134,24 +138,21 @@ class ComicsVM: ObservableObject {
         // get the JsonFile first and then transform it into a ComicObject
         guard let data = UserDefaults.standard.data(forKey: Constants.userDefaultsKey) else { return }
         guard let favouriteComicsList = try? JSONDecoder().decode([Comic].self, from: data) else { return }
-        /*for i, _ in favoriteComicList.enumerated() {
-            print(i)
-        }*/
+        
         for comic in favouriteComicsList {
-            print("favourite comics: \(comic.title)")
+            print("ComicVM, getting favourite comics: \(comic.title)")
         }
     }
     
     func checkIfSaved(comic: Comic) {
         if comicObjectList.contains(comic) {
-         ifSaved = true
+            ifSaved = true
         } else {
             ifSaved = false
         }
     }
-    
 }
 
 enum Constants {
-        static let userDefaultsKey = "saved_comic"
+    static let userDefaultsKey = "saved_comic"
 }

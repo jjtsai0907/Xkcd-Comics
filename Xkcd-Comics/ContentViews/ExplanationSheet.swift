@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct ExplanationSheet: View {
+struct ExplanationSheet: View {    
     var explainationSheetVM = ExplanationSheetVM()
     var num: Int
+    
     var body: some View {
         Webview(url: explainationSheetVM.getExplanationWebsite(comicNum: num))
     }

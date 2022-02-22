@@ -12,7 +12,6 @@ struct ContentView: View {
     @StateObject var comicsVM = ComicsVM()
     
     var body: some View {
-        
         NavigationView {
             VStack {
                 Spacer()
@@ -83,8 +82,7 @@ struct ContentView: View {
                 }
             })
         }
-    }
-    
+    }    
 }
 
 struct ContentView_Previews: PreviewProvider {
