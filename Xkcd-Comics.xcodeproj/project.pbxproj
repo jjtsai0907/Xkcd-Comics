@@ -22,6 +22,7 @@
 		B9D1AD47274E209500028CF6 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD46274E209500028CF6 /* Comic.swift */; };
 		B9EBD7B12750D36D003631EB /* IconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBD7B02750D36D003631EB /* IconButtonView.swift */; };
 		B9EBD7B92750EB97003631EB /* Xkcd_ComicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBD7B82750EB97003631EB /* Xkcd_ComicsTests.swift */; };
+		B9FA46E327C63F0400E2AA6F /* FetchingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA46E227C63F0400E2AA6F /* FetchingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		B9EBD7B62750EB96003631EB /* Xkcd-ComicsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Xkcd-ComicsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EBD7B82750EB97003631EB /* Xkcd_ComicsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xkcd_ComicsTests.swift; sourceTree = "<group>"; };
 		B9EBD7BA2750EB97003631EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9FA46E227C63F0400E2AA6F /* FetchingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		B9D1AD30274E182200028CF6 /* Xkcd-Comics */ = {
 			isa = PBXGroup;
 			children = (
+				B9FA46E127C63EDE00E2AA6F /* Services */,
 				B9D1AD43274E1CCA00028CF6 /* ContentViews */,
 				B9D1AD42274E1CB600028CF6 /* Views */,
 				B9D1AD41274E1C8D00028CF6 /* ViewModels */,
@@ -186,6 +189,14 @@
 				B9EBD7BA2750EB97003631EB /* Info.plist */,
 			);
 			path = "Xkcd-ComicsTests";
+			sourceTree = "<group>";
+		};
+		B9FA46E127C63EDE00E2AA6F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B9FA46E227C63F0400E2AA6F /* FetchingService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +378,7 @@
 				B9AF8CC3274E3CCC00B1552B /* ButtonView.swift in Sources */,
 				B9EBD7B12750D36D003631EB /* IconButtonView.swift in Sources */,
 				B9AF8CC7274E554400B1552B /* ExplanationSheetVM.swift in Sources */,
+				B9FA46E327C63F0400E2AA6F /* FetchingService.swift in Sources */,
 				B9D1AD45274E1D4800028CF6 /* ComicsVM.swift in Sources */,
 				B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */,
 			);

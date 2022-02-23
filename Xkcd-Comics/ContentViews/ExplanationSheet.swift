@@ -9,10 +9,9 @@ import SwiftUI
 
 struct ExplanationSheet: View {
     let viewModel: ExplanationSheetVM
-    let num: Int
     
     var body: some View {
-        Webview(url: viewModel.getExplanationWebsite(comicNum: num))
+        Webview(url: viewModel.getExplanationWebsite(comicNum: viewModel.number))
     }
 }
 

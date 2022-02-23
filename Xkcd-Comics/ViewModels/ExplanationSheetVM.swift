@@ -8,6 +8,12 @@
 import Foundation
 
 class ExplanationSheetVM: ObservableObject {
+    let number: Int
+    
+    init(number: Int) {
+        self.number = number
+    }
+    
     func getExplanationWebsite(comicNum: Int) -> String {
         return "https://www.explainxkcd.com/wiki/index.php/\(comicNum)"
     }

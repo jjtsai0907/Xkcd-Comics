@@ -23,12 +23,15 @@ struct ContentView: View {
                             .bold()
                             .padding()
                         
-                        Text("Comic Number: \(viewModel.comicObject.num)  Created: \(viewModel.comicObject.month )/\(viewModel.comicObject.year)").foregroundColor(.gray)
+                        Text("Comic Number: \(viewModel.comicObject.num) Created: \(viewModel.comicObject.month )/\(viewModel.comicObject.year)")
+                            .foregroundColor(.gray)
                         
                         HStack {
                             ButtonView(icon: "info.circle", title: "Explanation") {
                                 viewModel.showDescription()
-                            }.sheet(isPresented: $viewModel.showingExplanation, content: {ExplanationSheet(viewModel: ExplanationSheetVM(), num: viewModel.comicObject.num)})
+                            }.sheet(isPresented: $viewModel.showingExplanation) {
+                                ExplanationSheet(viewModel: ExplanationSheetVM(number: viewModel.comicObject.num))
+                            }
                         }
                     }
                 } else {
