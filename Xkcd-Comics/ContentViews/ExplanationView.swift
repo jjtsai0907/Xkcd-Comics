@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ExplanationSheet: View {
-    let viewModel: ExplanationSheetVM
+struct ExplanationView: View {
+    let viewModel: ExplanationViewModel
     
     var body: some View {
         Webview(url: viewModel.getExplanationWebsite(comicNum: viewModel.number))

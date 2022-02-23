@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct IconButtonView: View {
+struct CustomIconButton: View {
     let icon: String
     let function: () -> Void
     

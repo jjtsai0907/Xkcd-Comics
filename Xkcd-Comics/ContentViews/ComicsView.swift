@@ -8,34 +8,34 @@
 import SwiftUI
 import Kingfisher
 
-struct ContentView: View {
-    @StateObject var viewModel: ComicsVM
+struct ComicsView: View {
+    @StateObject var viewModel: ComicsViewModel
     
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
                 
-                if viewModel.showingInfo {
+                if viewModel.isShowingInfo {
                     VStack {
-                        Text(viewModel.comicObject.alt)
+                        Text(viewModel.comic.alt)
                             .font(.title2)
                             .bold()
                             .padding()
                         
-                        Text("Comic Number: \(viewModel.comicObject.num) Created: \(viewModel.comicObject.month )/\(viewModel.comicObject.year)")
+                        Text("Comic Number: \(viewModel.comic.num) Created: \(viewModel.comic.month )/\(viewModel.comic.year)")
                             .foregroundColor(.gray)
                         
                         HStack {
-                            ButtonView(icon: "info.circle", title: "Explanation") {
+                            CustomButton(icon: "info.circle", title: "Explanation") {
                                 viewModel.showDescription()
-                            }.sheet(isPresented: $viewModel.showingExplanation) {
-                                ExplanationSheet(viewModel: ExplanationSheetVM(number: viewModel.comicObject.num))
+                            }.sheet(isPresented: $viewModel.isShowingExplanation) {
+                                ExplanationView(viewModel: ExplanationViewModel(number: viewModel.comic.num))
                             }
                         }
                     }
                 } else {
-                    KFImage(URL(string: viewModel.comicObject.img))
+                    KFImage(URL(string: viewModel.comic.img))
                         .resizable()
                         .scaledToFit()
                         .padding()
@@ -43,10 +43,10 @@ struct ContentView: View {
                 Spacer()
                 
                 HStack {
-                    ButtonView(icon: "arrowshape.turn.up.backward", title: "Previous") {
+                    CustomButton(icon: "arrowshape.turn.up.backward", title: "Previous") {
                         viewModel.fetchPreviousComic()
                     }
-                    .alert(isPresented: $viewModel.showingPreviousComicAlert) {
+                    .alert(isPresented: $viewModel.isShowingPreviousComicAlert) {
                         Alert(
                             title: Text("More Comic?"),
                             message: Text("This is our very first comic ^3^")
@@ -54,21 +54,21 @@ struct ContentView: View {
                     }
                     Spacer()
                     
-                    ButtonView(icon: "arrowshape.turn.up.forward", title: "Next") {
+                    CustomButton(icon: "arrowshape.turn.up.forward", title: "Next") {
                         viewModel.fetchNextComic()
-                    }.alert(isPresented: $viewModel .showingNextComicAlert) {                        
+                    }.alert(isPresented: $viewModel .isShowingNextComicAlert) {                        
                         Alert(
                             title: Text("New Comic?"),
                             message: Text("This is our latest comic! Come back tomorrow ^3^")
                         )
                     }
                 }
-            }.navigationTitle(viewModel.comicObject.title)
+            }.navigationTitle(viewModel.comic.title)
             .onTapGesture {
-                viewModel.showingInfo.toggle()
+                viewModel.isShowingInfo.toggle()
             }
             .navigationBarItems(trailing: HStack {
-                if viewModel.showingSearch {
+                if viewModel.isShowingSearch {
                     TextField("Search..", text: $viewModel.searchValue)
                         .padding(.trailing)
                         .padding(.vertical, 5)
@@ -78,14 +78,14 @@ struct ContentView: View {
                         .keyboardType(.numberPad)
                 }
                 Spacer()
-                IconButtonView(icon: "magnifyingglass") {
+                CustomIconButton(icon: "magnifyingglass") {
                     viewModel.searchComic(searchNum: viewModel.searchValue)
                 }
-                IconButtonView(icon: viewModel.isSaved ? "heart.fill" : "heart") {
-                    viewModel.saveAsFavourite(comic: viewModel.comicObject)
+                CustomIconButton(icon: viewModel.isSaved ? "heart.fill" : "heart") {
+                    viewModel.saveAsFavourite(comic: viewModel.comic)
                 }
-                IconButtonView(icon: "person.fill") {
-                    viewModel.getFavouriteComic()
+                CustomIconButton(icon: "person.fill") {
+                    viewModel.getFavouriteComics()
                 }
             })
         }

@@ -25,7 +25,7 @@ class XkcdComicsTests: XCTestCase {
         // Given
         let comic = Comic(num: 1, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
         // When
-        let viewModel = ComicsVM()
+        let viewModel = ComicsViewModel()
         viewModel.saveAsFavourite(comic: comic)
         // Then
         XCTAssertTrue(viewModel.ifSaved)
@@ -34,19 +34,19 @@ class XkcdComicsTests: XCTestCase {
     func test_ComicsVM_comicObjectList_shouldBeEmpty() {
         // Given
         // When
-        let viewModel = ComicsVM()
+        let viewModel = ComicsViewModel()
         // Then
-        XCTAssertTrue(viewModel.comicObjectList.isEmpty)
+        XCTAssertTrue(viewModel.comics.isEmpty)
     }
     
     func test_ComicsVM_comicObjectList_shouldSaveAsFavourite() {
         // Given
         let comic = Comic(num: 1, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
-        let viewModel = ComicsVM()
+        let viewModel = ComicsViewModel()
         // When
         viewModel.saveAsFavourite(comic: comic)
         // Then
-        XCTAssertEqual(viewModel.comicObjectList.count, 1)
+        XCTAssertEqual(viewModel.comics.count, 1)
     }
 
 }
