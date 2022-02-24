@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ComicsView: View {
-    @StateObject var viewModel: ComicsViewModel
+    @ObservedObject var viewModel: ComicsViewModel
     
     var body: some View {
         NavigationView {
