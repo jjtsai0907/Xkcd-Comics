@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ExplanationViewModel: ObservableObject {
+class ExplanationViewModel {
     let number: Int
     
     init(number: Int) {

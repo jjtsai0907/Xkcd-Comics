@@ -28,7 +28,7 @@ struct ComicsView: View {
                         
                         HStack {
                             CustomButton(icon: "info.circle", title: "Explanation") {
-                                viewModel.showDescription()
+                                viewModel.toggleDescription()
                             }.sheet(isPresented: $viewModel.isShowingExplanation) {
                                 ExplanationView(viewModel: ExplanationViewModel(number: viewModel.comic.num))
                             }
@@ -65,7 +65,7 @@ struct ComicsView: View {
                 }
             }.navigationTitle(viewModel.comic.title)
             .onTapGesture {
-                viewModel.isShowingInfo.toggle()
+                viewModel.toggleInfo()
             }
             .navigationBarItems(trailing: HStack {
                 if viewModel.isShowingSearch {

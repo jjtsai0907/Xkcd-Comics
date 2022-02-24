@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExplanationView: View {
-    @ObservedObject var viewModel: ExplanationViewModel
+    let viewModel: ExplanationViewModel
     
     var body: some View {
         Webview(url: viewModel.getExplanationWebsite(comicNum: viewModel.number))

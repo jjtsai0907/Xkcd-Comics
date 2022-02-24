@@ -8,16 +8,16 @@
 import Foundation
 
 class ComicsViewModel: ObservableObject {
-    @Published var comic = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
-    @Published var comics: [Comic] = []
-    @Published var isSaved = false
+    @Published private(set) var comic = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
+    @Published private(set) var comics: [Comic] = []
+    @Published private(set) var isSaved = false
     @Published var isShowingNextComicAlert = false
     @Published var isShowingPreviousComicAlert = false
     // Explanation
     @Published var isShowingExplanation = false
-    @Published var isShowingInfo = false
+    @Published private(set) var isShowingInfo = false
     // Search
-    @Published var isShowingSearch = false
+    @Published private(set) var isShowingSearch = false
     @Published var searchValue = ""
     
     init() {
@@ -90,8 +90,12 @@ class ComicsViewModel: ObservableObject {
         task.resume()
     }
     
-    func showDescription() {
+    func toggleDescription() {
         isShowingExplanation.toggle()
+    }
+    
+    func toggleInfo() {
+        isShowingInfo.toggle()
     }
     
     func searchComic(searchNum: String) {
