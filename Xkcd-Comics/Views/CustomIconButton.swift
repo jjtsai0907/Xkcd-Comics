@@ -22,8 +22,10 @@ struct CustomIconButton: View {
     }
 }
 
-/*struct IconButtonView_Previews: PreviewProvider {
+struct CustomIconButton_Previews: PreviewProvider {
     static var previews: some View {
-        IconButtonView()
+        CustomIconButton(icon: "heart") {
+            print("CustomIconButton is pressed")
+        }
     }
-}*/
+}

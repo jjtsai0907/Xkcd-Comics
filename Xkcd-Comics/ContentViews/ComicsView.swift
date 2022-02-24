@@ -92,8 +92,8 @@ struct ComicsView: View {
     }    
 }
 
-/*struct ContentView_Previews: PreviewProvider {
+struct ComicsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ComicsView(viewModel: ComicsViewModel())
     }
-}*/
+}

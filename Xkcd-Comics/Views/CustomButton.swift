@@ -29,8 +29,10 @@ struct CustomButton: View {
     }
 }
 
-/*struct ButtonView_Previews: PreviewProvider {
+struct CustomButton_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView()
+        CustomButton(icon: "heart", title: "Next") {
+            print("CustomButton is Pressed")
+        }
     }
-}*/
+}

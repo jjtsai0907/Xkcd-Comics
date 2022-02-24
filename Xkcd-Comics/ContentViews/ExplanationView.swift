@@ -15,8 +15,8 @@ struct ExplanationView: View {
     }
 }
 
-/*struct ExplanationSheet_Previews: PreviewProvider {
+struct ExplanationView_Previews: PreviewProvider {
     static var previews: some View {
-        ExplanationSheet()
+        ExplanationView(viewModel: ExplanationViewModel(number: 2))
     }
-}*/
+}
