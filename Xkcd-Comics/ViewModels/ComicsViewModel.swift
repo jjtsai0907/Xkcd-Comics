@@ -20,74 +20,60 @@ class ComicsViewModel: ObservableObject {
     @Published private(set) var isShowingSearch = false
     @Published var searchValue = ""
     
-    init() {
+    let fetchingService: FetchingService
+    
+    init(fetchingService: FetchingService) {
+        self.fetchingService = fetchingService
         fetchComic()
     }
     
     func fetchComic() {
-        guard let url = URL(string: "https://xkcd.com/info.0.json") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else { return }
-            // Convert data to Model
-            do {
-                let model = try JSONDecoder().decode(Comic.self, from: data)
-                print(model.title)
+        fetchingService.fetchComic(fetchingURL: .latestComic) { result in
+            switch result {
+            case .success(let comic):
                 DispatchQueue.main.async {
-                    self.comic = model
-                    self.checkIfSaved(comic: model)
+                    self.comic = comic
+                    self.checkIfSaved(comic: comic)
                 }
-            } catch {
-                print("ComicsVM, fetching comic failed. Error: \(error)")
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
-        task.resume()
     }
     
     func fetchPreviousComic() {
-        guard let url = URL(string: "https://xkcd.com/\(comic.num - 1)/info.0.json") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else { return }
-            // Convert data to Model
-            do {
-                let model = try JSONDecoder().decode(Comic.self, from: data)
-                print(model.title)
+        print("VM fetchPreviousComic: number of current comic: \(comic.num)")
+        fetchingService.fetchComic(fetchingURL: .specificComic(comic.num - 1)) { result in
+            switch result {
+            case .success(let comic):
                 DispatchQueue.main.async {
-                    self.comic = model
-                    self.checkIfSaved(comic: model)
+                    self.comic = comic
+                    self.checkIfSaved(comic: comic)
                 }
-            } catch {
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self.isShowingPreviousComicAlert = true
                 }
                 print("ComicsVM, fetching previous comic failed. Error: \(error)")
             }
         }
-        task.resume()
     }
     
     func fetchNextComic() {
-        guard let url = URL(string: "https://xkcd.com/\( comic.num + 1)/info.0.json") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else { return }
-            // Convert data to Model
-            do {
-                let model = try JSONDecoder().decode(Comic.self, from: data)
-                print(model.title)
+        fetchingService.fetchComic(fetchingURL: .specificComic(comic.num + 1)) { result in
+            switch result {
+            case .success(let comic):
                 DispatchQueue.main.async {
-                    self.comic = model
-                    self.checkIfSaved(comic: model)
+                    self.comic = comic
+                    self.checkIfSaved(comic: comic)
                 }
-            } catch {
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self.isShowingNextComicAlert = true
                 }
                 print("ComicsVM, fetching next comic failed. Error: \(error)")
             }
         }
-        task.resume()
     }
     
     func toggleDescription() {
@@ -100,25 +86,19 @@ class ComicsViewModel: ObservableObject {
     
     func searchComic(searchNum: String) {
         if isShowingSearch {
-            // search function
-            guard let url = URL(string: "https://xkcd.com/\(searchNum)/info.0.json") else { return }
-            
-            let task = URLSession.shared.dataTask(with: url) { data, _, error in
-                guard let data = data, error == nil else { return }
-                // Convert data to Model
-                do {
-                    let model = try JSONDecoder().decode(Comic.self, from: data)
-                    print(model.title)
+            // TODO: error warning if the input is not int
+            fetchingService.fetchComic(fetchingURL: .specificComic(Int(searchNum) ?? 1)) { result in
+                switch result {
+                case .success(let comic):
                     DispatchQueue.main.async {
-                        self.comic = model
+                        self.comic = comic
                         self.isShowingSearch = false
-                        self.checkIfSaved(comic: model)
+                        self.checkIfSaved(comic: comic)
                     }
-                } catch {
+                case .failure(let error):
                     print("ComicsVM, searching next comic failed. Error: \(error)")
                 }
             }
-            task.resume()
         } else {
             isShowingSearch = true
         }
@@ -140,8 +120,11 @@ class ComicsViewModel: ObservableObject {
     
     func getFavouriteComics() {
         // get the JsonFile first and then transform it into a ComicObject
-        guard let data = UserDefaults.standard.data(forKey: Constants.userDefaultsKey) else { return }
-        guard let favouriteComicsList = try? JSONDecoder().decode([Comic].self, from: data) else { return }
+        guard let data = UserDefaults.standard.data(forKey: Constants.userDefaultsKey) else {
+            return
+        }
+        guard let favouriteComicsList = try? JSONDecoder().decode([Comic].self, from: data) else { return
+        }
         
         for comic in favouriteComicsList {
             print("ComicVM, getting favourite comics: \(comic.title)")
