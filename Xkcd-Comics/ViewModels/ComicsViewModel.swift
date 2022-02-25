@@ -113,7 +113,7 @@ class ComicsViewModel: ObservableObject {
             parsingService.encodingComics(comics: comics) { result in
                 switch result {
                 case .success(let encodedData):
-                    UserDefaults.standard.set(encodedData, forKey: UserFefaultKey.userDefaultsKey)
+                    UserDefaults.standard.set(encodedData, forKey: UserFefaultsKey.userDefaultsKey)
                     print("ComicVM, saving as favourite")
                     self.isSaved = true
                 case .failure(let error):

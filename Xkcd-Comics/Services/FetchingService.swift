@@ -8,6 +8,14 @@
 import Foundation
 
 class FetchingService {
+    let urlSession: URLSession
+    let jsonDecoder: JSONDecoder
+    
+    init(urlSession: URLSession, jsonDecoder: JSONDecoder) {
+        self.urlSession = urlSession
+        self.jsonDecoder = jsonDecoder
+    }
+    
     func fetchComic(fetchingURL: FetchingURL, completion: @escaping (Result<Comic, FetchingErrors>) -> Void) {
         var urlString = ""
         
@@ -19,15 +27,15 @@ class FetchingService {
         }
     
         guard let url = URL(string: urlString) else {
-            completion(.failure(.URLcrationFailure))
+            completion(.failure(.URLCrationFailure))
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = urlSession.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
             // Convert data Comic
             do {
-                let model = try JSONDecoder().decode(Comic.self, from: data)
+                let model = try self.jsonDecoder.decode(Comic.self, from: data)
                 print(model.title)
                 completion(.success(model))
             } catch {
@@ -45,14 +53,8 @@ class FetchingService {
 }
 
 enum FetchingErrors: Error {
-    case URLcrationFailure
+    case URLCrationFailure
     case timeOutFailure
     case internetFailure
     case fetchingError
 }
-
-/*enum  {
-    static let baseURL = "https://xkcd.com/info.0.json"
-    static let previouseURL = "https://xkcd.com/5/info.0.json" // TO DO: able to go to previous comic
-    //static let nextURL = "https://xkcd.com/\(comic.num + 1)/info.0.json"
-}*/

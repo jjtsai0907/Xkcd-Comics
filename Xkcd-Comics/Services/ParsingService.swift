@@ -8,11 +8,21 @@
 import Foundation
 
 class ParsingService {
+    let jsonEncoder: JSONEncoder
+    let jsonDecoder: JSONDecoder
+    let userDefaults: UserDefaults
+    
+    init(jsonEncoder: JSONEncoder, jsonDecoder: JSONDecoder, userDefaults: UserDefaults) {
+        self.jsonEncoder = jsonEncoder
+        self.jsonDecoder = jsonDecoder
+        self.userDefaults = userDefaults
+    }
+    
     func encodingComics(comics: [Comic], completion: @escaping (Result<Data, ParsingErrors>) -> Void) {
         // transform the Comic into a JsonFile, and then save it with UserDefaults
         do {
-            let encodedData = try JSONEncoder().encode(comics)
-            UserDefaults.standard.set(encodedData, forKey: UserFefaultKey.userDefaultsKey)
+            let encodedData = try jsonEncoder.encode(comics)
+            UserDefaults.standard.set(encodedData, forKey: UserFefaultsKey.userDefaultsKey)
             print("ParsingService, saving as favourite")
             completion(.success(encodedData))
         } catch {
@@ -23,7 +33,7 @@ class ParsingService {
     func decodingComics(jsonData: Data, completion: (Result<[Comic], ParsingErrors>) -> Void) {
         // transform jsonData into a Comic
         do {
-            let decodedData = try JSONDecoder().decode([Comic].self, from: jsonData)
+            let decodedData = try jsonDecoder.decode([Comic].self, from: jsonData)
             print("Decoding in Service")
             completion(.success(decodedData))
         } catch {
@@ -32,7 +42,7 @@ class ParsingService {
     }
     
     func getUserDefaultData() -> Data? {
-        guard let userDefaultData = UserDefaults.standard.data(forKey: UserFefaultKey.userDefaultsKey) else {
+        guard let userDefaultData = userDefaults.data(forKey: UserFefaultsKey.userDefaultsKey) else {
             return nil
         }
         return userDefaultData
@@ -43,6 +53,6 @@ enum ParsingErrors: Error {
     case parsingFailure(Error)
 }
 
-enum UserFefaultKey {
+enum UserFefaultsKey {
     static let userDefaultsKey = "saved_comic"
 }

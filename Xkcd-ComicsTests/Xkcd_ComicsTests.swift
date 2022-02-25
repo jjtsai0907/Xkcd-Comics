@@ -25,7 +25,10 @@ class XkcdComicsTests: XCTestCase {
         // Given
         let comic = Comic(num: 1, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
         // When
-        let viewModel = ComicsViewModel()
+        let viewModel = ComicsViewModel(
+            fetchingService: <#FetchingService#>,
+            parsingService: <#ParsingService#>
+        )
         viewModel.saveAsFavourite(comic: comic)
         // Then
         XCTAssertTrue(viewModel.ifSaved)
