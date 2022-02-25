@@ -19,11 +19,12 @@ class ComicsViewModel: ObservableObject {
     // Search
     @Published private(set) var isShowingSearch = false
     @Published var searchValue = ""
-    
     let fetchingService: FetchingService
+    let parsingService: ParsingService
     
-    init(fetchingService: FetchingService) {
+    init(fetchingService: FetchingService, parsingService: ParsingService) {
         self.fetchingService = fetchingService
+        self.parsingService = parsingService
         fetchComic()
     }
     
@@ -108,26 +109,34 @@ class ComicsViewModel: ObservableObject {
         if comics.contains(comic) {
             return
         } else {
-            // transform the ComicObject into a JsonFile, and then save it with UserDefaults
             comics.append(comic)
-            if let encodedData = try? JSONEncoder().encode(comics) {
-                UserDefaults.standard.set(encodedData, forKey: Constants.userDefaultsKey)
-                print("ComicVM, saving as favourite")
-                self.isSaved = true
+            parsingService.encodingComics(comics: comics) { result in
+                switch result {
+                case .success(let encodedData):
+                    UserDefaults.standard.set(encodedData, forKey: UserFefaultKey.userDefaultsKey)
+                    print("ComicVM, saving as favourite")
+                    self.isSaved = true
+                case .failure(let error):
+                    print("ComicVM, saving as favourite failed: \(error)")
+                }
             }
         }
     }
     
     func getFavouriteComics() {
-        // get the JsonFile first and then transform it into a ComicObject
-        guard let data = UserDefaults.standard.data(forKey: Constants.userDefaultsKey) else {
+        // get the JsonFile first and then transform it into a Comic
+        guard let jsonData = parsingService.getUserDefaultData() else {
             return
         }
-        guard let favouriteComicsList = try? JSONDecoder().decode([Comic].self, from: data) else { return
-        }
-        
-        for comic in favouriteComicsList {
-            print("ComicVM, getting favourite comics: \(comic.title)")
+        parsingService.decodingComics(jsonData: jsonData) { result in
+            switch result {
+            case .success(let comics):
+                for comic in comics {
+                    print("ComicVM, getting favourite comics: \(comic.title)")
+                }
+            case .failure(let error):
+                print("ComicViewModel, getting FavouriteComics failed: \(error)")
+            }
         }
     }
     
@@ -137,9 +146,5 @@ class ComicsViewModel: ObservableObject {
         } else {
             isSaved = false
         }
-    }
-    
-    private enum Constants {
-        static let userDefaultsKey = "saved_comic"
     }
 }

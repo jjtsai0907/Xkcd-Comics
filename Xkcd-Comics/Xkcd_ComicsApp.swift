@@ -11,7 +11,8 @@ import SwiftUI
 struct XkcdComicsApp: App {
     var body: some Scene {
         WindowGroup {
-            ComicsView(viewModel: ComicsViewModel(fetchingService: FetchingService()))
+            ComicsView(viewModel: ComicsViewModel(fetchingService: FetchingService(),
+                                                  parsingService: ParsingService()))
         }
     }
 }

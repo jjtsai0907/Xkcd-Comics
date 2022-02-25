@@ -94,6 +94,7 @@ struct ComicsView: View {
 
 struct ComicsView_Previews: PreviewProvider {
     static var previews: some View {
-        ComicsView(viewModel: ComicsViewModel(fetchingService: FetchingService()))
+        ComicsView(viewModel: ComicsViewModel(fetchingService: FetchingService(),
+                                              parsingService: ParsingService()))
     }
 }
