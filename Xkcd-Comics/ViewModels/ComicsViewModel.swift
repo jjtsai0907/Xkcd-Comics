@@ -20,11 +20,12 @@ class ComicsViewModel: ObservableObject {
     @Published private(set) var isShowingSearch = false
     @Published var searchValue = ""
     let fetchingService: FetchingService
-    let parsingService: ParsingService
+    let userDataService: UserDataService
     
-    init(fetchingService: FetchingService, parsingService: ParsingService) {
+    init(fetchingService: FetchingService,
+         userDataService: UserDataService) {
         self.fetchingService = fetchingService
-        self.parsingService = parsingService
+        self.userDataService = userDataService
         fetchComic()
     }
     
@@ -110,33 +111,16 @@ class ComicsViewModel: ObservableObject {
             return
         } else {
             comics.append(comic)
-            parsingService.encodingComics(comics: comics) { result in
-                switch result {
-                case .success(let encodedData):
-                    UserDefaults.standard.set(encodedData, forKey: UserFefaultsKey.userDefaultsKey)
-                    print("ComicVM, saving as favourite")
-                    self.isSaved = true
-                case .failure(let error):
-                    print("ComicVM, saving as favourite failed: \(error)")
-                }
-            }
+            userDataService.addComicToFavorites(comic: comic)
         }
     }
     
     func getFavouriteComics() {
-        // get the JsonFile first and then transform it into a Comic
-        guard let jsonData = parsingService.getUserDefaultData() else {
+        guard let comics = userDataService.favoriteComics() else {
             return
         }
-        parsingService.decodingComics(jsonData: jsonData) { result in
-            switch result {
-            case .success(let comics):
-                for comic in comics {
-                    print("ComicVM, getting favourite comics: \(comic.title)")
-                }
-            case .failure(let error):
-                print("ComicViewModel, getting FavouriteComics failed: \(error)")
-            }
+        for comic in comics {
+            print("ComicVM, getting favourite comics: \(comic.title)")
         }
     }
     

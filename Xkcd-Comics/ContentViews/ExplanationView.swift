@@ -11,7 +11,7 @@ struct ExplanationView: View {
     let viewModel: ExplanationViewModel
     
     var body: some View {
-        Webview(url: viewModel.getExplanationWebsite(comicNum: viewModel.number))
+        Webview(url: viewModel.getExplanationWebsite())
     }
 }
 

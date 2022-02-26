@@ -14,9 +14,9 @@ struct XkcdComicsApp: App {
             ComicsView(viewModel: ComicsViewModel(
                         fetchingService: FetchingService(urlSession: URLSession.shared,
                                                          jsonDecoder: JSONDecoder()),
-                        parsingService: ParsingService(jsonEncoder: JSONEncoder(),
-                                                       jsonDecoder: JSONDecoder(),
-                                                       userDefaults: UserDefaults.standard)))
+                        userDataService: UserDataService(userDefaults: UserDefaults.standard,
+                                                         jsonEncoder: JSONEncoder(),
+                                                         jsonDecoder: JSONDecoder())))
         }
     }
 }

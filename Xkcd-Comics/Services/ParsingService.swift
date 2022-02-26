@@ -6,16 +6,14 @@
 //
 
 import Foundation
-
+/*
 class ParsingService {
     let jsonEncoder: JSONEncoder
     let jsonDecoder: JSONDecoder
-    let userDefaults: UserDefaults
     
-    init(jsonEncoder: JSONEncoder, jsonDecoder: JSONDecoder, userDefaults: UserDefaults) {
+    init(jsonEncoder: JSONEncoder, jsonDecoder: JSONDecoder) {
         self.jsonEncoder = jsonEncoder
         self.jsonDecoder = jsonDecoder
-        self.userDefaults = userDefaults
     }
     
     func encodingComics(comics: [Comic], completion: @escaping (Result<Data, ParsingErrors>) -> Void) {
@@ -40,19 +38,8 @@ class ParsingService {
             completion(.failure(.parsingFailure(error)))
         }
     }
-    
-    func getUserDefaultData() -> Data? {
-        guard let userDefaultData = userDefaults.data(forKey: UserFefaultsKey.userDefaultsKey) else {
-            return nil
-        }
-        return userDefaultData
-    }
-}
+}*/
 
 enum ParsingErrors: Error {
     case parsingFailure(Error)
-}
-
-enum UserFefaultsKey {
-    static let userDefaultsKey = "saved_comic"
 }

@@ -14,7 +14,11 @@ class ExplanationViewModel {
         self.number = number
     }
     
-    func getExplanationWebsite(comicNum: Int) -> String {
-        return "https://www.explainxkcd.com/wiki/index.php/\(comicNum)"
+    func getExplanationWebsite() -> String {
+        return "\(WebsiteAddress.websiteBaseAddress)\(number)"
+    }
+    
+    private enum WebsiteAddress {
+        static let websiteBaseAddress = "https://www.explainxkcd.com/wiki/index.php/"
     }
 }
