@@ -19,27 +19,13 @@ class UserDataService {
     }
 
     func addComicToFavorites(comic: Comic) {
-        
         guard var favouriteComics = favoriteComics() else {
             print("addComicToFavorites: the list is empty")
-            do {
-                let encodedData = try jsonEncoder.encode([comic])
-                self.userDefaults.set(encodedData, forKey: UserFefaultsKey.userDefaultsKey)
-                print("UserDataService: add to UserDefaults:....\(comic.title)")
-            } catch {
-                print("UserDataService: fail to add to UserDefaults)")
-            }
+            encodeComics(comics: [comic])
             return
         }
-        
-        do {
-            favouriteComics.append(comic)
-            let encodedData = try jsonEncoder.encode(favouriteComics)
-            self.userDefaults.set(encodedData, forKey: UserFefaultsKey.userDefaultsKey)
-            print("UserDataService: add to UserDefaults \(favouriteComics.count)")
-        } catch {
-            print("UserDataService: fail to add to UserDefaults")
-        }
+        favouriteComics.append(comic)
+        encodeComics(comics: favouriteComics)
     }
     
     func favoriteComics() -> [Comic]? {
@@ -47,13 +33,23 @@ class UserDataService {
             print("the list is empty")
             return nil
         }
+        return decodeComics(comics: userDefaultData)
+    }
+    
+    private func encodeComics(comics: [Comic]) {
         do {
-            let decodedData = try jsonDecoder.decode([Comic].self, from: userDefaultData)
-            print("Decoding in Service")
+            let encodeData = try jsonEncoder.encode(comics)
+            self.userDefaults.set(encodeData, forKey: UserFefaultsKey.userDefaultsKey)
+            print("UserDataService: add to UserDefaults:....")
+        } catch {
+            print("UserDataService: fail to add to UserDefaults)")
+        }
+    }
+    
+    private func decodeComics(comics: Data) -> [Comic]? {
+        do {
+            let decodedData = try jsonDecoder.decode([Comic].self, from: comics)
             print("UserDataService: get UserDefaults")
-            for comic in decodedData {
-                print("ComicVM, getting favourite comics: \(comic.title)")
-            }
             return decodedData
         } catch {
             print("UserDataService: fail to get UserDefaults. Error: \(error)")
