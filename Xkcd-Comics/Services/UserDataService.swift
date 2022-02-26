@@ -42,14 +42,13 @@ class UserDataService {
             self.userDefaults.set(encodeData, forKey: UserFefaultsKey.userDefaultsKey)
             print("UserDataService: add to UserDefaults:....")
         } catch {
-            print("UserDataService: fail to add to UserDefaults)")
+            print("UserDataService: fail to add to UserDefaults. Error: \(error)")
         }
     }
     
     private func decodeComics(comics: Data) -> [Comic]? {
         do {
             let decodedData = try jsonDecoder.decode([Comic].self, from: comics)
-            print("UserDataService: get UserDefaults")
             return decodedData
         } catch {
             print("UserDataService: fail to get UserDefaults. Error: \(error)")

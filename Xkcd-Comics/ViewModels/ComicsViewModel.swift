@@ -9,7 +9,6 @@ import Foundation
 
 class ComicsViewModel: ObservableObject {
     @Published private(set) var comic = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
-    @Published private(set) var comics: [Comic] = []
     @Published private(set) var isSaved = false
     @Published var isShowingNextComicAlert = false
     @Published var isShowingPreviousComicAlert = false
@@ -35,7 +34,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.isSaved(comic: comic)
+                    _ = self.isSaved(comic: comic)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -50,7 +49,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.isSaved(comic: comic)
+                    _ = self.isSaved(comic: comic)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -67,7 +66,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.isSaved(comic: comic)
+                    _ = self.isSaved(comic: comic)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -95,7 +94,7 @@ class ComicsViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.comic = comic
                         self.isShowingSearch = false
-                        self.isSaved(comic: comic)
+                        _ = self.isSaved(comic: comic)
                     }
                 case .failure(let error):
                     print("ComicsVM, searching next comic failed. Error: \(error)")
@@ -111,7 +110,7 @@ class ComicsViewModel: ObservableObject {
             print("already saved")
         } else {
             DispatchQueue.main.async {
-                self.isSaved(comic: comic)
+                _ = self.isSaved(comic: comic)
             }
             userDataService.addComicToFavorites(comic: comic)
         }
@@ -126,7 +125,7 @@ class ComicsViewModel: ObservableObject {
         }
     }
     
-    func isSaved(comic: Comic) -> Bool {
+    private func isSaved(comic: Comic) -> Bool {
         guard let favouriteComics = userDataService.favoriteComics() else {
             self.isSaved = false
             return false
