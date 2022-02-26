@@ -35,7 +35,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.checkIfSaved(comic: comic)
+                    self.isSaved(comic: comic)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -50,7 +50,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.checkIfSaved(comic: comic)
+                    self.isSaved(comic: comic)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -67,7 +67,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.checkIfSaved(comic: comic)
+                    self.isSaved(comic: comic)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -95,7 +95,7 @@ class ComicsViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.comic = comic
                         self.isShowingSearch = false
-                        self.checkIfSaved(comic: comic)
+                        self.isSaved(comic: comic)
                     }
                 case .failure(let error):
                     print("ComicsVM, searching next comic failed. Error: \(error)")
@@ -107,10 +107,12 @@ class ComicsViewModel: ObservableObject {
     }
     
     func saveAsFavourite(comic: Comic) {
-        if comics.contains(comic) {
-            return
+        if isSaved(comic: comic) {
+            print("already saved")
         } else {
-            comics.append(comic)
+            DispatchQueue.main.async {
+                self.isSaved(comic: comic)
+            }
             userDataService.addComicToFavorites(comic: comic)
         }
     }
@@ -124,11 +126,16 @@ class ComicsViewModel: ObservableObject {
         }
     }
     
-    func checkIfSaved(comic: Comic) {
-        if comics.contains(comic) {
-            isSaved = true
-        } else {
-            isSaved = false
+    func isSaved(comic: Comic) -> Bool {
+        guard let favouriteComics = userDataService.favoriteComics() else {
+            self.isSaved = false
+            return false
         }
+        if favouriteComics.contains(comic) {
+            self.isSaved = true
+            return true
+        }
+        self.isSaved = false
+        return false
     }
 }
