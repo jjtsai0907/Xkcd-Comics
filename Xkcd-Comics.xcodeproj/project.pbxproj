@@ -14,7 +14,6 @@
 		B9AF8CC7274E554400B1552B /* ExplanationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF8CC6274E554400B1552B /* ExplanationViewModel.swift */; };
 		B9AF8CC9274E560100B1552B /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AF8CC8274E560100B1552B /* Webview.swift */; };
 		B9AF8CCC274E6A7500B1552B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B9AF8CCB274E6A7500B1552B /* Kingfisher */; };
-		B9BF608D27C8E9F400F4A611 /* ParsingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BF608C27C8E9F400F4A611 /* ParsingService.swift */; };
 		B9BF609027C9093400F4A611 /* MockFetchingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BF608F27C9093400F4A611 /* MockFetchingService.swift */; };
 		B9BF609227C9255000F4A611 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BF609127C9255000F4A611 /* UserDataService.swift */; };
 		B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D1AD31274E182200028CF6 /* Xkcd_ComicsApp.swift */; };
@@ -49,7 +48,6 @@
 		B9AF8CC4274E4D8F00B1552B /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		B9AF8CC6274E554400B1552B /* ExplanationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewModel.swift; sourceTree = "<group>"; };
 		B9AF8CC8274E560100B1552B /* Webview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
-		B9BF608C27C8E9F400F4A611 /* ParsingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingService.swift; sourceTree = "<group>"; };
 		B9BF608F27C9093400F4A611 /* MockFetchingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchingService.swift; sourceTree = "<group>"; };
 		B9BF609127C9255000F4A611 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		B9D1AD2E274E182200028CF6 /* Xkcd-Comics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Xkcd-Comics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				B9FA46E227C63F0400E2AA6F /* FetchingService.swift */,
-				B9BF608C27C8E9F400F4A611 /* ParsingService.swift */,
 				B9BF609127C9255000F4A611 /* UserDataService.swift */,
 			);
 			path = Services;
@@ -397,7 +394,6 @@
 				B9BF609227C9255000F4A611 /* UserDataService.swift in Sources */,
 				B9AF8CC7274E554400B1552B /* ExplanationViewModel.swift in Sources */,
 				B9FA46E327C63F0400E2AA6F /* FetchingService.swift in Sources */,
-				B9BF608D27C8E9F400F4A611 /* ParsingService.swift in Sources */,
 				B9D1AD45274E1D4800028CF6 /* ComicsViewModel.swift in Sources */,
 				B9D1AD32274E182200028CF6 /* Xkcd_ComicsApp.swift in Sources */,
 			);

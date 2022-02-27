@@ -8,18 +8,18 @@
 import Foundation
 
 class FetchingService {
-    let urlSession: URLSession
-    let jsonDecoder: JSONDecoder
+    private let urlSession: URLSession
+    private let jsonDecoder: JSONDecoder
     
     init(urlSession: URLSession, jsonDecoder: JSONDecoder) {
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
     }
     
-    func fetchComic(fetchingURL: FetchingURL, completion: @escaping (Result<Comic, FetchingErrors>) -> Void) {
+    func fetchComic(comicType: ComicType, completion: @escaping (Result<Comic, FetchingError>) -> Void) {
         var urlString = ""
         
-        switch fetchingURL {
+        switch comicType {
         case .latestComic:
             urlString = "https://xkcd.com/info.0.json"
         case .specificComic(let num):
@@ -27,7 +27,7 @@ class FetchingService {
         }
     
         guard let url = URL(string: urlString) else {
-            completion(.failure(.URLCrationFailure))
+            completion(.failure(.urlCreationFailure))
             return
         }
         
@@ -39,22 +39,24 @@ class FetchingService {
                 print(model.title)
                 completion(.success(model))
             } catch {
-                completion(.failure(.fetchingError))
+                completion(.failure(.decodingError))
                 print("ComicsVM, fetching comic failed. Error: \(error)")
             }
         }
         task.resume()
     }
     
-    enum FetchingURL {
+    enum ComicType {
         case latestComic
         case specificComic(Int)
     }
 }
 
-enum FetchingErrors: Error {
-    case URLCrationFailure
+// TODO: Should still name it FetchingErrors?
+enum FetchingError: Error {
+    case urlCreationFailure
     case timeOutFailure
     case internetFailure
     case fetchingError
+    case decodingError
 }

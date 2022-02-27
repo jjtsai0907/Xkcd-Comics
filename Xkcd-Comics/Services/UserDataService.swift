@@ -8,9 +8,9 @@
 import Foundation
 
 class UserDataService {
-    let userDefaults: UserDefaults
-    let jsonEncoder: JSONEncoder
-    let jsonDecoder: JSONDecoder
+    private let userDefaults: UserDefaults
+    private let jsonEncoder: JSONEncoder
+    private let jsonDecoder: JSONDecoder
     
     init(userDefaults: UserDefaults, jsonEncoder: JSONEncoder, jsonDecoder: JSONDecoder) {
         self.userDefaults = userDefaults
@@ -19,17 +19,17 @@ class UserDataService {
     }
 
     func addComicToFavorites(comic: Comic) {
-        guard var favouriteComics = favoriteComics() else {
+        guard var favoriteComics = favoriteComics() else {
             print("addComicToFavorites: the list is empty")
             encodeComics(comics: [comic])
             return
         }
-        favouriteComics.append(comic)
-        encodeComics(comics: favouriteComics)
+        favoriteComics.append(comic)
+        encodeComics(comics: favoriteComics)
     }
     
     func favoriteComics() -> [Comic]? {
-        guard let userDefaultData = userDefaults.data(forKey: UserFefaultsKey.userDefaultsKey) else {
+        guard let userDefaultData = userDefaults.data(forKey: UserDefaultsKeys.favoriteComics) else {
             print("the list is empty")
             return nil
         }
@@ -39,7 +39,7 @@ class UserDataService {
     private func encodeComics(comics: [Comic]) {
         do {
             let encodeData = try jsonEncoder.encode(comics)
-            self.userDefaults.set(encodeData, forKey: UserFefaultsKey.userDefaultsKey)
+            self.userDefaults.set(encodeData, forKey: UserDefaultsKeys.favoriteComics)
             print("UserDataService: add to UserDefaults:....")
         } catch {
             print("UserDataService: fail to add to UserDefaults. Error: \(error)")
@@ -57,6 +57,6 @@ class UserDataService {
     }
 }
 
-enum UserFefaultsKey {
-    static let userDefaultsKey = "saved_comic"
+enum UserDefaultsKeys {
+    static let favoriteComics = "favoriteComics"
 }

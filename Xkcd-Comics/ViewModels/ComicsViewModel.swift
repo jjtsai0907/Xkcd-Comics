@@ -18,8 +18,8 @@ class ComicsViewModel: ObservableObject {
     // Search
     @Published private(set) var isShowingSearch = false
     @Published var searchValue = ""
-    let fetchingService: FetchingService
-    let userDataService: UserDataService
+    private let fetchingService: FetchingService
+    private let userDataService: UserDataService
     
     init(fetchingService: FetchingService,
          userDataService: UserDataService) {
@@ -29,7 +29,7 @@ class ComicsViewModel: ObservableObject {
     }
     
     func fetchComic() {
-        fetchingService.fetchComic(fetchingURL: .latestComic) { result in
+        fetchingService.fetchComic(comicType: .latestComic) { result in
             switch result {
             case .success(let comic):
                 DispatchQueue.main.async {
@@ -44,7 +44,7 @@ class ComicsViewModel: ObservableObject {
     
     func fetchPreviousComic() {
         print("VM fetchPreviousComic: number of current comic: \(comic.num)")
-        fetchingService.fetchComic(fetchingURL: .specificComic(comic.num - 1)) { result in
+        fetchingService.fetchComic(comicType: .specificComic(comic.num - 1)) { result in
             switch result {
             case .success(let comic):
                 DispatchQueue.main.async {
@@ -61,7 +61,7 @@ class ComicsViewModel: ObservableObject {
     }
     
     func fetchNextComic() {
-        fetchingService.fetchComic(fetchingURL: .specificComic(comic.num + 1)) { result in
+        fetchingService.fetchComic(comicType: .specificComic(comic.num + 1)) { result in
             switch result {
             case .success(let comic):
                 DispatchQueue.main.async {
@@ -86,42 +86,42 @@ class ComicsViewModel: ObservableObject {
     }
     
     func searchComic(searchNum: String) {
-        if isShowingSearch {
-            // TODO: error warning if the input is not int
-            fetchingService.fetchComic(fetchingURL: .specificComic(Int(searchNum) ?? 1)) { result in
-                switch result {
-                case .success(let comic):
-                    DispatchQueue.main.async {
-                        self.comic = comic
-                        self.isShowingSearch = false
-                        _ = self.isSaved(comic: comic)
-                    }
-                case .failure(let error):
-                    print("ComicsVM, searching next comic failed. Error: \(error)")
-                }
-            }
-        } else {
+        guard isShowingSearch else {
             isShowingSearch = true
+            return
+        }
+        // TODO: error warning if the input is not int
+        fetchingService.fetchComic(comicType: .specificComic(Int(searchNum) ?? 1)) { result in
+            switch result {
+            case .success(let comic):
+                DispatchQueue.main.async {
+                    self.comic = comic
+                    self.isShowingSearch = false
+                    _ = self.isSaved(comic: comic)
+                }
+            case .failure(let error):
+                print("ComicsVM, searching next comic failed. Error: \(error)")
+            }
         }
     }
     
     func saveAsFavourite(comic: Comic) {
-        if isSaved(comic: comic) {
+        guard !isSaved(comic: comic) else {
             print("already saved")
-        } else {
-            DispatchQueue.main.async {
-                _ = self.isSaved(comic: comic)
-            }
-            userDataService.addComicToFavorites(comic: comic)
+            return
         }
+        DispatchQueue.main.async {
+            _ = self.isSaved(comic: comic)
+        }
+        userDataService.addComicToFavorites(comic: comic)
     }
     
-    func getFavouriteComics() {
+    func getFavoriteComics() {
         guard let comics = userDataService.favoriteComics() else {
             return
         }
         for comic in comics {
-            print("ComicVM, getting favourite comics: \(comic.title)")
+            print("ComicVM, getting favorite comics: \(comic.title)")
         }
     }
     

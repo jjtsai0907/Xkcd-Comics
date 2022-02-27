@@ -85,7 +85,7 @@ struct ComicsView: View {
                     viewModel.saveAsFavourite(comic: viewModel.comic)
                 }
                 CustomIconButton(icon: "person.fill") {
-                    viewModel.getFavouriteComics()
+                    viewModel.getFavoriteComics()
                 }
             })
         }
