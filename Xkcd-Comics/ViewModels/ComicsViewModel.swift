@@ -32,10 +32,7 @@ class ComicsViewModel: ObservableObject {
         fetchingService.fetchComic(comicType: .latestComic) { result in
             switch result {
             case .success(let comic):
-                DispatchQueue.main.async {
-                    self.comic = comic
-                    _ = self.isSaved(comic: comic)
-                }
+                self.handleFetchedComic(comic: comic)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -47,10 +44,7 @@ class ComicsViewModel: ObservableObject {
         fetchingService.fetchComic(comicType: .specificComic(comic.num - 1)) { result in
             switch result {
             case .success(let comic):
-                DispatchQueue.main.async {
-                    self.comic = comic
-                    _ = self.isSaved(comic: comic)
-                }
+                self.handleFetchedComic(comic: comic)
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.isShowingPreviousComicAlert = true
@@ -64,10 +58,7 @@ class ComicsViewModel: ObservableObject {
         fetchingService.fetchComic(comicType: .specificComic(comic.num + 1)) { result in
             switch result {
             case .success(let comic):
-                DispatchQueue.main.async {
-                    self.comic = comic
-                    _ = self.isSaved(comic: comic)
-                }
+                self.handleFetchedComic(comic: comic)
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.isShowingNextComicAlert = true
@@ -96,8 +87,8 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    self.isShowingSearch = false
                     _ = self.isSaved(comic: comic)
+                    self.isShowingSearch = false
                 }
             case .failure(let error):
                 print("ComicsVM, searching next comic failed. Error: \(error)")
@@ -136,5 +127,12 @@ class ComicsViewModel: ObservableObject {
         }
         self.isSaved = false
         return false
+    }
+    
+    private func handleFetchedComic(comic: Comic) {
+        DispatchQueue.main.async {
+            self.comic = comic
+            _ = self.isSaved(comic: comic)
+        }
     }
 }

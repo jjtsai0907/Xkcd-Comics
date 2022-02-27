@@ -33,7 +33,7 @@ class FetchingService {
         
         let task = urlSession.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
-            // Convert data Comic
+            // Convert data to Comic
             do {
                 let model = try self.jsonDecoder.decode(Comic.self, from: data)
                 print(model.title)
@@ -52,7 +52,6 @@ class FetchingService {
     }
 }
 
-// TODO: Should still name it FetchingErrors?
 enum FetchingError: Error {
     case urlCreationFailure
     case timeOutFailure
