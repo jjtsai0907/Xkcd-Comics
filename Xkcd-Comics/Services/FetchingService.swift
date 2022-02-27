@@ -17,7 +17,7 @@ class FetchingService {
     }
     
     func fetchComic(comicType: ComicType, completion: @escaping (Result<Comic, FetchingError>) -> Void) {
-        var urlString = ""
+        let urlString: String
         
         switch comicType {
         case .latestComic:

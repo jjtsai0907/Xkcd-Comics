@@ -24,7 +24,36 @@ struct ComicsView: View {
             }
             .navigationBarItems(trailing: NavigationBarView(viewModel: viewModel))
         }
-    }    
+    }
+    
+    // MARK: extracted subview that used only in this view
+    private struct NextAndPreviousButtonView: View {
+        @ObservedObject var viewModel: ComicsViewModel
+        
+        var body: some View {
+            HStack {
+                CustomButton(icon: "arrowshape.turn.up.backward", title: "Previous") {
+                    viewModel.fetchPreviousComic()
+                }
+                .alert(isPresented: $viewModel.isShowingPreviousComicAlert) {
+                    Alert(
+                        title: Text("More Comic?"),
+                        message: Text("This is our very first comic ^3^")
+                    )
+                }
+                Spacer()
+                
+                CustomButton(icon: "arrowshape.turn.up.forward", title: "Next") {
+                    viewModel.fetchNextComic()
+                }.alert(isPresented: $viewModel .isShowingNextComicAlert) {
+                    Alert(
+                        title: Text("New Comic?"),
+                        message: Text("This is our latest comic! Come back tomorrow ^3^")
+                    )
+                }
+            }
+        }
+    }
 }
 
 struct ComicsView_Previews: PreviewProvider {
@@ -38,7 +67,7 @@ struct ComicsView_Previews: PreviewProvider {
     }
 }
 
-// MARK: Extracted Subviews
+// MARK: Extracted SubViews
 struct ComicView: View {
     @ObservedObject var viewModel: ComicsViewModel
     
@@ -66,34 +95,6 @@ struct ComicView: View {
                 .resizable()
                 .scaledToFit()
                 .padding()
-        }
-    }
-}
-
-struct NextAndPreviousButtonView: View {
-    @ObservedObject var viewModel: ComicsViewModel
-    
-    var body: some View {
-        HStack {
-            CustomButton(icon: "arrowshape.turn.up.backward", title: "Previous") {
-                viewModel.fetchPreviousComic()
-            }
-            .alert(isPresented: $viewModel.isShowingPreviousComicAlert) {
-                Alert(
-                    title: Text("More Comic?"),
-                    message: Text("This is our very first comic ^3^")
-                )
-            }
-            Spacer()
-            
-            CustomButton(icon: "arrowshape.turn.up.forward", title: "Next") {
-                viewModel.fetchNextComic()
-            }.alert(isPresented: $viewModel .isShowingNextComicAlert) {
-                Alert(
-                    title: Text("New Comic?"),
-                    message: Text("This is our latest comic! Come back tomorrow ^3^")
-                )
-            }
         }
     }
 }

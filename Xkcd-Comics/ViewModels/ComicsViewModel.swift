@@ -87,7 +87,7 @@ class ComicsViewModel: ObservableObject {
             case .success(let comic):
                 DispatchQueue.main.async {
                     self.comic = comic
-                    _ = self.isSaved(comic: comic)
+                    self.isSaved = self.isSaved(comic: comic)
                     self.isShowingSearch = false
                 }
             case .failure(let error):
@@ -97,12 +97,12 @@ class ComicsViewModel: ObservableObject {
     }
     
     func saveAsFavourite(comic: Comic) {
-        guard !isSaved(comic: comic) else {
+        guard !isSaved else {
             print("already saved")
             return
         }
         DispatchQueue.main.async {
-            _ = self.isSaved(comic: comic)
+            self.isSaved = self.isSaved(comic: comic)
         }
         userDataService.addComicToFavorites(comic: comic)
     }
@@ -118,21 +118,18 @@ class ComicsViewModel: ObservableObject {
     
     private func isSaved(comic: Comic) -> Bool {
         guard let favouriteComics = userDataService.favoriteComics() else {
-            self.isSaved = false
             return false
         }
         if favouriteComics.contains(comic) {
-            self.isSaved = true
             return true
         }
-        self.isSaved = false
         return false
     }
     
     private func handleFetchedComic(comic: Comic) {
         DispatchQueue.main.async {
             self.comic = comic
-            _ = self.isSaved(comic: comic)
+            self.isSaved = self.isSaved(comic: comic)
         }
     }
 }
