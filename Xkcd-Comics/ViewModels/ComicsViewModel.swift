@@ -32,7 +32,9 @@ class ComicsViewModel: ObservableObject {
         fetchingService.fetchComic(comicType: .latestComic) { result in
             switch result {
             case .success(let comic):
-                self.handleFetchedComic(comic: comic)
+                DispatchQueue.main.async {
+                    self.handleFetchedComic(comic: comic)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -44,7 +46,9 @@ class ComicsViewModel: ObservableObject {
         fetchingService.fetchComic(comicType: .specificComic(comic.num - 1)) { result in
             switch result {
             case .success(let comic):
-                self.handleFetchedComic(comic: comic)
+                DispatchQueue.main.async {
+                    self.handleFetchedComic(comic: comic)
+                }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.isShowingPreviousComicAlert = true
@@ -58,7 +62,9 @@ class ComicsViewModel: ObservableObject {
         fetchingService.fetchComic(comicType: .specificComic(comic.num + 1)) { result in
             switch result {
             case .success(let comic):
-                self.handleFetchedComic(comic: comic)
+                DispatchQueue.main.async {
+                    self.handleFetchedComic(comic: comic)
+                }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.isShowingNextComicAlert = true
@@ -86,8 +92,7 @@ class ComicsViewModel: ObservableObject {
             switch result {
             case .success(let comic):
                 DispatchQueue.main.async {
-                    self.comic = comic
-                    self.isSaved = self.isSaved(comic: comic)
+                    self.handleFetchedComic(comic: comic)
                     self.isShowingSearch = false
                 }
             case .failure(let error):
@@ -102,34 +107,20 @@ class ComicsViewModel: ObservableObject {
             return
         }
         DispatchQueue.main.async {
-            self.isSaved = self.isSaved(comic: comic)
+            self.isSaved = self.userDataService.isSaved(comic: comic)
         }
         userDataService.addComicToFavorites(comic: comic)
     }
     
     func getFavoriteComics() {
-        guard let comics = userDataService.favoriteComics() else {
-            return
-        }
+        let comics = userDataService.favoriteComics()
         for comic in comics {
             print("ComicVM, getting favorite comics: \(comic.title)")
         }
     }
     
-    private func isSaved(comic: Comic) -> Bool {
-        guard let favouriteComics = userDataService.favoriteComics() else {
-            return false
-        }
-        if favouriteComics.contains(comic) {
-            return true
-        }
-        return false
-    }
-    
     private func handleFetchedComic(comic: Comic) {
-        DispatchQueue.main.async {
-            self.comic = comic
-            self.isSaved = self.isSaved(comic: comic)
-        }
+        self.comic = comic
+        self.isSaved = self.userDataService.isSaved(comic: comic)
     }
 }

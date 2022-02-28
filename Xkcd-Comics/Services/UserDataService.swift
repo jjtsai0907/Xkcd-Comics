@@ -19,21 +19,23 @@ class UserDataService {
     }
 
     func addComicToFavorites(comic: Comic) {
-        guard var favoriteComics = favoriteComics() else {
-            print("addComicToFavorites: the list is empty")
-            encodeComics(comics: [comic])
-            return
-        }
+        var favoriteComics = favoriteComics()
         favoriteComics.append(comic)
         encodeComics(comics: favoriteComics)
     }
     
-    func favoriteComics() -> [Comic]? {
-        guard let userDefaultData = userDefaults.data(forKey: UserDefaultsKeys.favoriteComics) else {
+    func favoriteComics() -> [Comic] {
+        guard let userDefaultData = userDefaults.data(forKey: UserDefaultsKeys.favoriteComics),
+              let favoriteComics = decodeComics(comics: userDefaultData) else {
             print("the list is empty")
-            return nil
+            return []
         }
-        return decodeComics(comics: userDefaultData)
+        
+        return favoriteComics
+    }
+    
+    func isSaved(comic: Comic) -> Bool {
+        return favoriteComics().contains(comic)
     }
     
     private func encodeComics(comics: [Comic]) {
