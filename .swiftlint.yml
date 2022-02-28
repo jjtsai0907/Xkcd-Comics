@@ -1,0 +1,5 @@
+
+disabled_rules:
+    - closure_body_length
+    - trailing_whitespace
+line_length: 140
