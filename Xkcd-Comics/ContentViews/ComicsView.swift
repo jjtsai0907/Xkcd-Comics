@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import os
 
 struct ComicsView: View {
     @ObservedObject var viewModel: ComicsViewModel
@@ -63,7 +64,8 @@ struct ComicsView_Previews: PreviewProvider {
                                                      jsonDecoder: JSONDecoder()),
                     userDataService: UserDataService(userDefaults: UserDefaults.standard,
                                                      jsonEncoder: JSONEncoder(),
-                                                     jsonDecoder: JSONDecoder())))
+                                                     jsonDecoder: JSONDecoder(),
+                                                     logger: Logger())))
     }
 }
 

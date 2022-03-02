@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import os
 
 @main
 struct XkcdComicsApp: App {
@@ -16,7 +17,8 @@ struct XkcdComicsApp: App {
                                                          jsonDecoder: JSONDecoder()),
                         userDataService: UserDataService(userDefaults: UserDefaults.standard,
                                                          jsonEncoder: JSONEncoder(),
-                                                         jsonDecoder: JSONDecoder())))
+                                                         jsonDecoder: JSONDecoder(),
+                                                         logger: Logger(subsystem: "OOOOOOOO", category: "YYYYYYYY"))))
         }
     }
 }
