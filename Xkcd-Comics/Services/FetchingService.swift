@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FetchingService {
+class FetchingService: FetchingServiceProtocol {
     private let urlSession: URLSession
     private let jsonDecoder: JSONDecoder
     
@@ -44,11 +44,6 @@ class FetchingService {
             }
         }
         task.resume()
-    }
-    
-    enum ComicType {
-        case latestComic
-        case specificComic(Int)
     }
 }
 

@@ -18,11 +18,11 @@ class ComicsViewModel: ObservableObject {
     // Search
     @Published private(set) var isShowingSearch = false
     @Published var searchValue = ""
-    private let fetchingService: FetchingService
-    private let userDataService: UserDataService
+    private let fetchingService: FetchingServiceProtocol
+    private let userDataService: UserDataProtocol
     
-    init(fetchingService: FetchingService,
-         userDataService: UserDataService) {
+    init(fetchingService: FetchingServiceProtocol,
+         userDataService: UserDataProtocol) {
         self.fetchingService = fetchingService
         self.userDataService = userDataService
         fetchComic()
@@ -106,10 +106,10 @@ class ComicsViewModel: ObservableObject {
             print("already saved")
             return
         }
+        userDataService.addComicToFavorites(comic: comic)
         DispatchQueue.main.async {
             self.isSaved = self.userDataService.isSaved(comic: comic)
         }
-        userDataService.addComicToFavorites(comic: comic)
     }
     
     func getFavoriteComics() {
