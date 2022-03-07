@@ -84,7 +84,7 @@ struct ComicView: View {
                 
                 HStack {
                     CustomButton(icon: "info.circle", title: "Explanation") {
-                        viewModel.toggleDescription()
+                        viewModel.toggleExplanationSheet()
                     }.sheet(isPresented: $viewModel.isShowingExplanation) {
                         ExplanationView(viewModel: ExplanationViewModel(number: viewModel.comic.num))
                     }

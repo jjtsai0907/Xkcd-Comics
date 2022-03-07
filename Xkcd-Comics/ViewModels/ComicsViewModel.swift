@@ -74,7 +74,7 @@ class ComicsViewModel: ObservableObject {
         }
     }
     
-    func toggleDescription() {
+    func toggleExplanationSheet() {
         isShowingExplanation.toggle()
     }
     
