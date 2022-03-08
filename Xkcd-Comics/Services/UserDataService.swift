@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserDataService {
+class UserDataService: UserDataProtocol {
     private let userDefaults: UserDefaults
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder

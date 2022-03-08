@@ -13,7 +13,8 @@ struct XkcdComicsApp: App {
         WindowGroup {
             ComicsView(viewModel: ComicsViewModel(
                         fetchingService: FetchingService(urlSession: URLSession.shared,
-                                                         jsonDecoder: JSONDecoder()),
+                                                         jsonDecoder: JSONDecoder(),
+                                                         requestFactory: .init(baseURL: .init(string: "https://xkcd.com/")!)),
                         userDataService: UserDataService(userDefaults: UserDefaults.standard,
                                                          jsonEncoder: JSONEncoder(),
                                                          jsonDecoder: JSONDecoder())))
