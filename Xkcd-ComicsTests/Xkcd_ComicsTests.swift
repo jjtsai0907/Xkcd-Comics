@@ -15,29 +15,21 @@ import Combine
 class XkcdComicsTests: XCTestCase {
     private var subscriptions = Set<AnyCancellable>()
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    private func makeSUT(fetchingService: FetchingServiceProtocol = MockFetchingService()) -> ComicsViewModel {
+        ComicsViewModel(fetchingService: fetchingService, userDataService: MockUserDataService())
     }
     
-    private func makeSUT() -> ComicsViewModel {
-        ComicsViewModel(fetchingService: MockFetchingService(), userDataService: MockUserDataService())
-    }
-    
-    func test_ComicsVM_ifSaved_isFalseInitially() {
+    func test_ComicsVM_isSaved_isFalseInitially() {
         let viewModel = makeSUT()
         XCTAssertFalse(viewModel.isSaved)
     }
 
     func test_ComicsVM_isSaved_shouldBeTrue() {
-        let mockComic3 = Comic(num: 2, title: "Test2", img: "Test2", alt: "Test2", year: "Test2", month: "Test2")
+        // let mockComic3 = Comic(num: 2, title: "Test2", img: "Test2", alt: "Test2", year: "Test2", month: "Test2")
 
         let viewModel = makeSUT()
         
-        let expectation = XCTestExpectation(description: "hey")
+        let expectation = XCTestExpectation(description: "Expected published isSaved value")
         viewModel.$isSaved
             .dropFirst()
             .sink { isSaved in
@@ -47,7 +39,7 @@ class XkcdComicsTests: XCTestCase {
             }
             .store(in: &subscriptions)
         
-        viewModel.saveAsFavourite(comic: mockComic3)
+        viewModel.saveAsFavourite()
         
         wait(for: [expectation], timeout: 0.5)
     }
@@ -106,29 +98,23 @@ class XkcdComicsTests: XCTestCase {
     }
     
     func test_comicsViewModel_fetchSearchedComic_shouldSuccess() {
-        let expectedComic = Comic(num: 88, title: "", img: "", alt: "", year: "", month: "")
-        
-        let mockFetchingService = MockFetchingService(fetchSpecificComicResult: .success(expectedComic))
-        let viewModel = ComicsViewModel(
-            fetchingService: mockFetchingService,
-            userDataService: MockUserDataService()
-        )
-        
+        let mockFetchingService = MockFetchingService()
+        let viewModel = makeSUT(fetchingService: mockFetchingService)
         let expectation = XCTestExpectation(description: "should be able to fetch a searched comic")
+        
         viewModel.$comic
             .dropFirst()
-            .sink { comic in
-                guard comic.num == expectedComic.num else { return }
-                
-                XCTAssertEqual(mockFetchingService.lastSpecificComicNumber, 9)
+            .sink { _ in
+                guard mockFetchingService.lastSpecificComicNumber == 77 else { return }
+
                 expectation.fulfill()
             }
             .store(in: &subscriptions)
         
-        viewModel.searchComic(searchNum: "9")
-        viewModel.searchComic(searchNum: "9")
+        viewModel.searchValue = "77"
+        viewModel.searchComic()
         
-        wait(for: [expectation], timeout: 1.5)
+        wait(for: [expectation], timeout: 10.5)
     }
     
     func test_comicViewModel_isShowingExplanation_shouldBeToggled() {

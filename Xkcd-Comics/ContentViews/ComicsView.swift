@@ -60,7 +60,8 @@ struct ComicsView_Previews: PreviewProvider {
     static var previews: some View {
         ComicsView(viewModel: ComicsViewModel(
                     fetchingService: FetchingService(urlSession: URLSession.shared,
-                                                     jsonDecoder: JSONDecoder()),
+                                                     jsonDecoder: JSONDecoder(),
+                                                     requestFactory: .init(baseURL: URL(string: "https://www.example.com")!)),
                     userDataService: UserDataService(userDefaults: UserDefaults.standard,
                                                      jsonEncoder: JSONEncoder(),
                                                      jsonDecoder: JSONDecoder())))
@@ -105,20 +106,22 @@ struct NavigationBarView: View {
     var body: some View {
         HStack {
             if viewModel.isShowingSearch {
-                TextField("Search..", text: $viewModel.searchValue)
-                    .padding(.trailing)
-                    .padding(.vertical, 5)
-                    .padding(.horizontal, 5)
-                    .background(Color(.lightGray))
-                    .cornerRadius(10)
-                    .keyboardType(.numberPad)
+                TextField("Search..", text: $viewModel.searchValue, onCommit: {
+                    viewModel.searchComic()
+                    print("return pressed!")
+                })
+                .padding(.trailing)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 5)
+                .background(Color(.lightGray))
+                .cornerRadius(10)
             }
             Spacer()
             CustomIconButton(icon: "magnifyingglass") {
-                viewModel.searchComic(searchNum: viewModel.searchValue)
+                viewModel.toggleSearchView()
             }
             CustomIconButton(icon: viewModel.isSaved ? "heart.fill" : "heart") {
-                viewModel.saveAsFavourite(comic: viewModel.comic)
+                viewModel.saveAsFavourite()
             }
             CustomIconButton(icon: "person.fill") {
                 viewModel.getFavoriteComics()

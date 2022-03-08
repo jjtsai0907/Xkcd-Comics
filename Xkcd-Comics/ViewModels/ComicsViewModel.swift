@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 class ComicsViewModel: ObservableObject {
     @Published private(set) var comic = Comic(num: 1, title: "Default", img: "Default", alt: "Default", year: "Default", month: "Default")
@@ -20,12 +21,14 @@ class ComicsViewModel: ObservableObject {
     @Published var searchValue = ""
     private let fetchingService: FetchingServiceProtocol
     private let userDataService: UserDataProtocol
+    private let logger = Logger(subsystem: "RRR", category: "HHH")
     
     init(fetchingService: FetchingServiceProtocol,
          userDataService: UserDataProtocol) {
         self.fetchingService = fetchingService
         self.userDataService = userDataService
         fetchComic()
+        logger.debug("fkdsjflsjdlfkslkd")
     }
     
     func fetchComic() {
@@ -82,34 +85,13 @@ class ComicsViewModel: ObservableObject {
         isShowingInfo.toggle()
     }
     
-    func searchComic(searchNum: String) {
-        guard isShowingSearch else {
-            isShowingSearch = true
-            return
-        }
-        // TODO: error warning if the input is not int
-        fetchingService.fetchComic(comicType: .specificComic(Int(searchNum) ?? 1)) { result in
-            switch result {
-            case .success(let comic):
-                DispatchQueue.main.async {
-                    self.handleFetchedComic(comic: comic)
-                    self.isShowingSearch = false
-                }
-            case .failure(let error):
-                print("ComicsVM, searching next comic failed. Error: \(error)")
-            }
-        }
-    }
-    
-    func saveAsFavourite(comic: Comic) {
+    func saveAsFavourite() {
         guard !isSaved else {
             print("already saved")
             return
         }
         userDataService.addComicToFavorites(comic: comic)
-        DispatchQueue.main.async {
-            self.isSaved = self.userDataService.isSaved(comic: comic)
-        }
+        isSaved = self.userDataService.isSaved(comic: self.comic)
     }
     
     func getFavoriteComics() {
@@ -122,5 +104,26 @@ class ComicsViewModel: ObservableObject {
     private func handleFetchedComic(comic: Comic) {
         self.comic = comic
         self.isSaved = self.userDataService.isSaved(comic: comic)
+    }
+    
+    // MARK: SearchView
+    
+    func toggleSearchView() {
+        isShowingSearch.toggle()
+    }
+    
+    func searchComic() {
+        // TODO: error warning if the input is not int
+        fetchingService.fetchComic(comicType: .specificComic(Int(searchValue) ?? 1)) { result in
+            switch result {
+            case .success(let comic):
+                DispatchQueue.main.async {
+                    self.handleFetchedComic(comic: comic)
+                    self.isShowingSearch = false
+                }
+            case .failure(let error):
+                print("ComicsVM, searching next comic failed. Error: \(error)")
+            }
+        }
     }
 }

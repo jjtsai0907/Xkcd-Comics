@@ -29,15 +29,10 @@ class MockFetchingService: FetchingServiceProtocol {
     }
     
     func fetchComic(comicType: ComicType, completion: @escaping (Result<Comic, FetchingError>) -> Void) {
-//        let mockLatestComic = Comic(num: 100, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
-//        let mockSpecificComic = Comic(num: 200, title: "Test", img: "Test", alt: "Test", year: "Test", month: "Test")
-        
         switch comicType {
         case .latestComic:
-//            completion(.success(mockLatestComic))
             completion(fetchLatestComicResult)
         case .specificComic(let number):
-//            completion(.success(mockSpecificComic))
             lastSpecificComicNumber = number
             completion(fetchSpecificComicResult)
         }

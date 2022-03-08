@@ -10,28 +10,18 @@ import Foundation
 class FetchingService: FetchingServiceProtocol {
     private let urlSession: URLSession
     private let jsonDecoder: JSONDecoder
+    private let requestFactory: RequestFactory
     
-    init(urlSession: URLSession, jsonDecoder: JSONDecoder) {
+    init(urlSession: URLSession, jsonDecoder: JSONDecoder, requestFactory: RequestFactory) {
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
+        self.requestFactory = requestFactory
     }
     
     func fetchComic(comicType: ComicType, completion: @escaping (Result<Comic, FetchingError>) -> Void) {
-        let urlString: String
+        let request = requestFactory.makeComicRequest(comicType: comicType)
         
-        switch comicType {
-        case .latestComic:
-            urlString = "https://xkcd.com/info.0.json"
-        case .specificComic(let num):
-            urlString = "https://xkcd.com/\(String(describing: num))/info.0.json"
-        }
-    
-        guard let url = URL(string: urlString) else {
-            completion(.failure(.urlCreationFailure))
-            return
-        }
-        
-        let task = urlSession.dataTask(with: url) { data, _, error in
+        let task = urlSession.dataTask(with: .init(request)) { data, _, error in
             guard let data = data, error == nil else { return }
             // Convert data to Comic
             do {
@@ -48,7 +38,6 @@ class FetchingService: FetchingServiceProtocol {
 }
 
 enum FetchingError: Error {
-    case urlCreationFailure
     case timeOutFailure
     case internetFailure
     case fetchingError
